@@ -14,6 +14,11 @@ public class GroupWordsByLength {
         Map<Integer, List<String>> result=words.stream().collect(Collectors.groupingBy(String::length));
         System.out.println("stream result "+result);
         System.out.println("Normal output "+getgroupwords(words));
+
+        Map<Integer, String> map=new HashMap<>();
+        map.put(1,"abcd");
+
+        System.out.println("Key value is: "+map.get(1));
     }
 
     private static Map<Integer, List<String>> getgroupwords(List<String> words){
