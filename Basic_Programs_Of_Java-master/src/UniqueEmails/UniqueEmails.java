@@ -1,4 +1,4 @@
-package Clientbofa;
+package UniqueEmails;
 
 //Given an array of emails[i], find the number of unique email addresses based on the following rules
 //In tej@email.com, "tej" is the local name and "email" is the domain name

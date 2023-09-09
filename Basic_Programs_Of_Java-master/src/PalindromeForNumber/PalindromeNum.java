@@ -2,7 +2,7 @@ package PalindromeForNumber;
 
 public class PalindromeNum {
     public static void main(String[] args) {
-        int num=1331;
+        int num=2552;
         int rev=0;
         int rem;
 
@@ -13,9 +13,21 @@ public class PalindromeNum {
             rev=rev*10+rem;
             num/=10;
         }
+        //System.out.println("temp value "+temp);
         if(temp==rev){
             System.out.println("Palindrome");
         }else
             System.out.println("Not Palindrome");
+    //////////////////////////////////////////////////////////////
+
+        //Sum of digits
+        int n=565;
+        int sum=0;
+        while(n>0){
+             sum+=n%10;
+            n=n/10;
+        }
+        System.out.println("Sum of given number is :"+sum);
+
     }
 }
