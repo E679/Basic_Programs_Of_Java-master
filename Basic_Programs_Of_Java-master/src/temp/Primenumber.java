@@ -5,6 +5,7 @@ import javax.swing.plaf.IconUIResource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Primenumber {
     public static void main(String[] args) {
@@ -12,8 +13,32 @@ public class Primenumber {
         List<Integer> numlist= Arrays.asList(2,3,5,8,4,6,13);
         boolean flag=false;
         getPrimenumber(nums, flag);
-        //Prime NUmbers from 1 to 100
+        //Prime Numbers from 1 to 100
         getPrimenumberFromList();
+        //Prime numbers From GivenRange
+        getPrimenumberFromGivenRange();
+    }
+
+    private static void getPrimenumberFromGivenRange() {
+        List<Integer> result=new ArrayList<>();
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter 1st number");
+        int lower=sc.nextInt();
+        System.out.println("Enter 2nd number");
+        int upper=sc.nextInt();
+
+        for (int i=lower;i<=upper;i++){
+            int count=0;
+            for (int j=1;j<=i;j++){
+                if (i%j==0){
+                    count++;
+                }
+            }
+            if (count==2){
+                result.add(i);
+            }
+        }
+        System.out.println("Prime numbers within range from "+lower+" to "+upper+" :"+result);
     }
 
     private static void getPrimenumberFromList() {
