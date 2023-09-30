@@ -1,16 +1,15 @@
 package temp;
 
 
-import javax.swing.plaf.IconUIResource;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Primenumber {
     public static void main(String[] args) {
-       int nums= 2;
-        List<Integer> numlist= Arrays.asList(2,3,5,8,4,6,13);
+       int nums= 27;
+        //List<Integer> numlist= Arrays.asList(2,3,5,8,4,6,13);
         boolean flag=false;
         getPrimenumber(nums, flag);
         //Prime Numbers from 1 to 100
@@ -52,8 +51,6 @@ public class Primenumber {
             }
             if(count==2){
                 result.add(i);
-            }else {
-                continue;
             }
         }
             System.out.println("Prime numbers from list are: "+result);
