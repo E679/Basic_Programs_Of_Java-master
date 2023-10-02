@@ -9,6 +9,11 @@ public class SortStringAlphabetically {
         getSortedString(str);
         //Sort a string in alphabetical order with in built method
         getSortedStringWithInBuiltMethod(str);
+        //Sort String Array alphabetically by the initial character only in Java
+        String[] strArr = { "PQRS", "AB", "RSTUVW", "RST", "U", "UVWXY", "OUJBG" };
+        System.out.println("Sorting array strings = ");
+        Arrays.sort(strArr, (str1, str2) -> str1.charAt(0) - str2.charAt(0));
+        Arrays.asList(strArr).forEach(System.out::println);
     }
 
     private static void getSortedStringWithInBuiltMethod(String str) {
