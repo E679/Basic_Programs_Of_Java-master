@@ -7,10 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/*
+Input: "banana", "apple", "cherry", "date", "grape"
+Output: {4=[date], 5=[apple, grape], 6=[banana, cherry]}
+ */
 public class GroupWordsByLength {
     public static void main(String[] args) {
-        List<String> words= Arrays.asList("I","have","a","sentence","with","technical","words");
-
+        //List<String> words= Arrays.asList("I","have","a","sentence","with","technical","words");
+        List<String> words= Arrays.asList("banana", "apple", "cherry", "date", "grape");
         Map<Integer, List<String>> result=words.stream().collect(Collectors.groupingBy(String::length));
         System.out.println("stream result "+result);
         System.out.println("Normal output "+getgroupwords(words));
