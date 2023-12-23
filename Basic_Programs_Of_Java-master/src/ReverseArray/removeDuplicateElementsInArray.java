@@ -56,7 +56,7 @@ public class removeDuplicateElementsInArray {
 
         arr=sortedArray(arr,len);//4 5 12 48 56
 
-        System.out.print("From set: \n");
+        System.out.print("\nFrom set: \n");
         for (int i =0;i<len;i++){
             System.out.print(arr[i]+" ");
         }
@@ -87,10 +87,10 @@ public class removeDuplicateElementsInArray {
             uniqueElements.add(arr[i]);
         }
 
-//        int j=0;
-//        for(Integer a:uniqueElements){
-//                arr[j++]=a;
-//        }
+        int j=0;
+        for(Integer a:uniqueElements){
+                arr[j++]=a;
+        }
 
         return uniqueElements.size();
     }
