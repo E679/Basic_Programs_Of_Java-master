@@ -27,5 +27,17 @@ public class ReverseStringUsingCharArray {
         obj.reverseStringUsingCharArray(str);
         obj.reverseStringUsingStringBuilder(str2);
 
+        System.out.println("Last two elements: \n"+reverseLastTwoElementsInString(str));
+
+    }
+
+    private static String reverseLastTwoElementsInString(String str) {
+//        String res="";
+//        for (int i=str.length()-1;i>=0;i--){
+//            res+=str.charAt(i);
+//        }
+        return str.substring(0, str.length() - 2)
+                + str.charAt(str.length() - 1)
+                + str.charAt(str.length() - 2);
     }
 }
