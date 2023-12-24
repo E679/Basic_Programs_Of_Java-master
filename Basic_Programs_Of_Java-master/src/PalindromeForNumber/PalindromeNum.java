@@ -29,5 +29,17 @@ public class PalindromeNum {
         }
         System.out.println("Sum of given number is :"+sum);
 
+        int x=121;
+        reverseStringUsingStringBuilder(x);
+    }
+
+    private static boolean reverseStringUsingStringBuilder(int x) {
+        String strX = String.valueOf(x);
+        StringBuilder sb=new StringBuilder();
+        sb.append(strX);
+        sb=sb.reverse();
+        boolean res=strX.equals(sb.toString());
+        return res;
+
     }
 }
