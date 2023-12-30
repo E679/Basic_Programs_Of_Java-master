@@ -1,4 +1,4 @@
-package ReverseString;
+package ReverseStringAndStringManipulation;
 
 import java.util.ArrayList;
 import java.util.Arrays;

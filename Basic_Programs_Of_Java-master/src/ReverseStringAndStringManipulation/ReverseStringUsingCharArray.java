@@ -1,4 +1,4 @@
-package ReverseString;
+package ReverseStringAndStringManipulation;
 
 public class ReverseStringUsingCharArray {
     private void reverseStringUsingCharArray(String str){
