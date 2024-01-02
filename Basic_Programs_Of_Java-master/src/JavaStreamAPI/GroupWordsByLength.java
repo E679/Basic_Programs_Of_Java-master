@@ -1,4 +1,4 @@
-package temp;
+package JavaStreamAPI;
 
 import java.util.Arrays;
 import java.util.ArrayList;

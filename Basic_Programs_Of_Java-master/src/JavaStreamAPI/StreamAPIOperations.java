@@ -82,7 +82,7 @@ public class StreamAPIOperations {
         Map<String, Optional<Student>> stdMap = studentList.stream()
                 .collect(Collectors.groupingBy(Student::getDept,
                         Collectors.minBy(Comparator.comparing(Student::getRank))));
-         System.out.println(stdMap);
+         //System.out.println(stdMap);
 
 
 
@@ -95,6 +95,15 @@ public class StreamAPIOperations {
         /*
         Github reference : https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbHNEai1KOXM4MVlreHJzbG1sUThENUlFWXREd3xBQ3Jtc0tsRGtXcUhONGgydmFfTlZMM3dyVWhBa3dyNHJxS2xUTGpRWjJPSjBPUk5ZemptU0hjSE1IU2tKYUpreU9Gb0VNS0ZIdnpoZ3hUWnVZUWtMelpHdGZ4ZXl6S0JQY1g4eExJQ3JieGhCMG9VaGNXMTNxTQ&q=https%3A%2F%2Fgithub.com%2FJava-Techie-jt%2Fjava8%2Ftree%2Fmaster%2Fqa&v=Ul_7T2WJIuQ
          */
+
+        //Iterate using Stream
+        Stream<Integer> str= Stream.iterate(40, n->n+2).limit(10);
+        str.forEach(System.out::println);
+        //Iterate using List
+        List<Integer> str1=Stream.iterate(40,n->n+2).limit(10).collect(Collectors.toList());
+        System.out.println(str1);
+
+
 
 
     }
