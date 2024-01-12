@@ -29,5 +29,10 @@ public class StringEqualsMethod {
         System.out.println(str.endsWith("d"));   // true
         System.out.println(str.startsWith("a")); // true
         System.out.println(str.isEmpty());       // false
+
+        String s11 = "abc";
+        String s22 = "abc";
+
+        System.out.println("s1 == s2 is:" + s11 == s22);//false
     }
 }

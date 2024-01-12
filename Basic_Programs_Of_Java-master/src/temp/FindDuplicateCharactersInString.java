@@ -21,6 +21,13 @@ public class FindDuplicateCharactersInString {
                 System.out.print(" " + str1[i]);
             }
         }
+
+        System.out.println("\n"+checkVowelIsPresentOrNot("hello"));
+        System.out.println(checkVowelIsPresentOrNot("tv"));
+    }
+
+    private static boolean checkVowelIsPresentOrNot(String str) {
+        return str.toLowerCase().matches(".*[aeiou].*");
     }
 
 }

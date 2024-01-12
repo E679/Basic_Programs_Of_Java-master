@@ -13,12 +13,6 @@ public class Employee {
         return empId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Employee employee)) return false;
-        return getEmpId() == employee.getEmpId() && getDeptId() == employee.getDeptId() && getSalary() == employee.getSalary() && Objects.equals(getEmpName(), employee.getEmpName()) && Objects.equals(getStatus(), employee.getStatus());
-    }
 
     @Override
     public int hashCode() {
