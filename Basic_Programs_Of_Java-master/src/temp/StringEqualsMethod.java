@@ -1,4 +1,4 @@
-package ReverseStringAndStringManipulation;
+package temp;
 
 public class StringEqualsMethod {
     public static void main(String[] args) {

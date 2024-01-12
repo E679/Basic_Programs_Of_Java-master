@@ -28,10 +28,19 @@ public class PalindromeNum {
             n=n/10;
         }
         System.out.println("Sum of given number is :"+sum);
-
+        //Sum using recursion
+        int res=sum_of_digit(16);
+        System.out.println("Sum using Recursion is : "+res);
         int x=121;
         reverseStringUsingStringBuilder(x);
     }
+    public static int sum_of_digit(int num)
+    {
+        if (num == 0)
+            return 0;
+        return (num % 10 + sum_of_digit(num / 10));
+    }
+
 
     private static boolean reverseStringUsingStringBuilder(int x) {
         String strX = String.valueOf(x);
