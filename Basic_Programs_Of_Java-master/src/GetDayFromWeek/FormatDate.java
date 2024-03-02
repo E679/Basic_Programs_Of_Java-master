@@ -20,11 +20,12 @@ public class FormatDate {
         for (int i = 0; i < str1.length(); i++) {
             for (int j = i + 1; j < str1.length(); j++) {
                 if (str1.charAt(i) != (str1.charAt(j))) {
-                   al.add(str1.charAt(i));
-                   break;
+                   //al.add(str1.charAt(i));
+                    str2+=str1.charAt(i);
                 }
             }
         }
-        System.out.println(al); // bcdABCDbcdABCD
+
+        System.out.println(str2); // bcdABCDbcdABCD
     }
 }

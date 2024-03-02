@@ -21,7 +21,7 @@ public class MapVsFlatMap {
         List<List<String>> phoneNumbers = customers.
                 stream().map(customer -> customer.getPhoneNumbers())
                 .collect(Collectors.toList());
-        System.out.println(phoneNumbers);
+        System.out.println("phoneNumbers: "+phoneNumbers);
 
         //List<Customer>  convert List<String> -> Data Transformation
         //mapping : customer -> phone Numbers
