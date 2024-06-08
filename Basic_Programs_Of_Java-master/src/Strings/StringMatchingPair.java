@@ -4,7 +4,8 @@ import java.util.Stack;
 //optional for preparation
 public class StringMatchingPair {
     public static void main(String[] args) {
-        checkBalance("abcsdfab");
+        String abcsdfab = checkBalance("ababababab");
+        System.out.println(abcsdfab);
     }
 
     public static String checkBalance(String s) {
