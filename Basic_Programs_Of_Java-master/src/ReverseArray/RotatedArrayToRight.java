@@ -1,16 +1,25 @@
 package ReverseArray;
 
+import Validations.constantUtils;
+
 /*
 Rotate an array by n positions
 
-Input:
+Input1:
   int [] arr={1, 2, 3, 4, 5};
   positions=2;
 
 Output:
   Rotated Array: 4 5 1 2 3
+
+Input2:
+  int [] arr={1, 2, 3, 4, 5, 6, 7};
+  positions=3;
+
+Output:
+  Rotated Array: 5, 6, 7, 1, 2, 3, 4
  */
-public class RotatedArray {
+public class RotatedArrayToRight {
     public static void main(String[] args) {
         int [] arr={1, 2, 3, 4, 5};
         int positions=2;
@@ -37,7 +46,19 @@ public class RotatedArray {
         for (int i=0;i<n;++i){
             System.out.print(res[i]+" ");
         }
+
+        //Rotate array using reverse logic
+        int [] nums2={1, 2, 3, 4, 5, 6, 7};
+        int k2=3;
+        int n2=nums2.length;
+        rotatearrayUsingPositionsUsingReverseLogic(nums2,n2,k2);
+        System.out.println("\nRotate array using Reverse Logic: \n");
+        for (int i=0;i<n2;++i){
+            System.out.print(nums2[i]+" ");
+        }
+
     }
+
 
     private static int[] rotatearrayUsingPositions(int[] nums, int n,int k) {
         if (k > n)
@@ -55,4 +76,16 @@ public class RotatedArray {
         }
         return ans;
     }
+
+    private static void rotatearrayUsingPositionsUsingReverseLogic(int[] nums, int n, int k) {
+        if (k > n)
+            k = k % n;
+        //1st step reverse array
+        constantUtils.reverse(nums, 0, n - 1);
+        //2nd step reverse array from o to kth elements
+        constantUtils.reverse(nums, 0, k - 1);
+        //3rd step reverse array from k to n-1
+        constantUtils.reverse(nums, k, n - 1);
+    }
+
 }

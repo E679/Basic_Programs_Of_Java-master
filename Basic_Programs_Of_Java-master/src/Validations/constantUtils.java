@@ -70,4 +70,14 @@ public class constantUtils {
     public static boolean isValidName(String fieldValue) {
         return matchesValidRegex(fieldValue,NAME_VALIDATION_REGEX);
     }
+
+    public static void reverse(int[] arr, int start, int end) {
+        while (start < end) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+    }
 }
