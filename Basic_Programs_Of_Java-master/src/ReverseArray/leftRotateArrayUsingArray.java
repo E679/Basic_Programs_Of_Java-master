@@ -45,15 +45,18 @@ public class leftRotateArrayUsingArray {
         Scanner scanner = new Scanner(System.in);
 
         // Input the size of the array
+        System.out.println("Input the size of the array");
         int n = scanner.nextInt();
 
         // Input the array elements
         int[] arr = new int[n];
+        System.out.println("Input the array elements");
         for (int i = 0; i < n; i++) {
             arr[i] = scanner.nextInt();
         }
 
         // Input the number of rotations
+        System.out.println("Input the number of rotations");
         int k = scanner.nextInt();
 
         // Perform left rotation
@@ -69,9 +72,12 @@ public class leftRotateArrayUsingArray {
 
     // Function to perform left rotation
     private static void leftRotate(int[] arr, int k) {
+        int n =arr.length;
+        if (k > n)
+            k = k % n;
         reverse(arr, 0, k - 1);
-        reverse(arr, k, arr.length - 1);
-        reverse(arr, 0, arr.length - 1);
+        reverse(arr, k, n - 1);
+        reverse(arr, 0, n - 1);
     }
 
     // Function to reverse elements in the array within the specified range
