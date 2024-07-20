@@ -33,6 +33,6 @@ public class StringEqualsMethod {
         String s11 = "abc";
         String s22 = "abc";
 
-        System.out.println("s1 == s2 is:" + s11 == s22);//false
+        System.out.println("s11 == s22 is:" +(s11 == s22));//true
     }
 }
