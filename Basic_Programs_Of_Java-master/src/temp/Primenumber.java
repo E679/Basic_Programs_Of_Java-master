@@ -16,6 +16,34 @@ public class Primenumber {
         getPrimenumberFromList();
         //Prime numbers From GivenRange
         getPrimenumberFromGivenRange();
+        getPrimenumberFrom1ToN();
+    }
+
+    private static void getPrimenumberFrom1ToN() {
+        List<Integer> result = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter 1st number");
+        int lower = sc.nextInt();
+        System.out.println("Enter 2nd number");
+        int upper = sc.nextInt();
+
+        if (lower==1 || lower<=1) {
+            System.out.println(lower+" Is not a Prime number\nPlease Enter 1st Number More than "+lower);
+            return;
+        }
+        for (int i = lower; i <= upper; i++) {
+            boolean isPrime = true;
+            for (int j = 2; j < i; j++) {
+                if (i % j == 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+            if (isPrime) {
+                result.add(i);
+            }
+        }
+        System.out.println("Prime numbers within range from 1 to N : "+lower+" to "+upper+" :"+result);
     }
 
     private static void getPrimenumberFromGivenRange() {
@@ -26,6 +54,10 @@ public class Primenumber {
         System.out.println("Enter 2nd number");
         int upper=sc.nextInt();
 
+        if (lower==1 || lower<=1) {
+            System.out.println(lower+" Is not a Prime number\nPlease Enter 1st Number More than "+lower);
+            return;
+        }
         for (int i=lower;i<=upper;i++){
             int count=0;
             for (int j=1;j<=i;j++){
