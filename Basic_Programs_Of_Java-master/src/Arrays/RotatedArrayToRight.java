@@ -1,4 +1,4 @@
-package ReverseArray;
+package Arrays;
 
 import Validations.constantUtils;
 

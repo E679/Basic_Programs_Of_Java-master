@@ -1,4 +1,4 @@
-package ReverseArray;
+package Arrays;
 
 // Java Program to Remove Duplicate Elements
 // From the Array using extra space

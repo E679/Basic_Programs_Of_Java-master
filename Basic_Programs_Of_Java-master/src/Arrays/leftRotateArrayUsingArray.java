@@ -1,7 +1,4 @@
-package ReverseArray;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+package Arrays;
 import java.util.Scanner;
 /*
 Problem statement
@@ -43,33 +40,54 @@ Constraints:
 1 <= 'k' < 'n'
 
  */
-public class leftRotateArrayUsingList {
+public class leftRotateArrayUsingArray {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Input the size of the list
+        // Input the size of the array
+        System.out.println("Input the size of the array");
         int n = scanner.nextInt();
 
-        // Input the list elements
-        List<Integer> arr = new ArrayList<>();
+        // Input the array elements
+        int[] arr = new int[n];
+        System.out.println("Input the array elements");
         for (int i = 0; i < n; i++) {
-            arr.add(scanner.nextInt());
+            arr[i] = scanner.nextInt();
         }
 
         // Input the number of rotations
+        System.out.println("Input the number of rotations");
         int k = scanner.nextInt();
 
         // Perform left rotation
         leftRotate(arr, k);
 
-        // Print the rotated list
-        System.out.println(arr);
+        // Print the rotated array
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
 
         scanner.close();
     }
 
     // Function to perform left rotation
-    private static void leftRotate(List<Integer> arr, int k) {
-        Collections.rotate(arr.subList(0, k), k);
+    private static void leftRotate(int[] arr, int k) {
+        int n =arr.length;
+        if (k > n)
+            k = k % n;
+        reverse(arr, 0, k - 1);
+        reverse(arr, k, n - 1);
+        reverse(arr, 0, n - 1);
+    }
+
+    // Function to reverse elements in the array within the specified range
+    private static void reverse(int[] arr, int start, int end) {
+        while (start < end) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
     }
 }

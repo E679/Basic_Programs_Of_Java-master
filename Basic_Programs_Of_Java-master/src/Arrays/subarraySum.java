@@ -1,4 +1,4 @@
-package ReverseArray;
+package Arrays;
 
 public class subarraySum {
     public static void main(String[] args) {
