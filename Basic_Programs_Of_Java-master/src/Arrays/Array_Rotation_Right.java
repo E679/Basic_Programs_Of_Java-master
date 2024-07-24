@@ -1,4 +1,4 @@
-package ReverseArray;
+package Arrays;
 
 // Java Implementation of Right Rotation
 // of an Array K number of times
