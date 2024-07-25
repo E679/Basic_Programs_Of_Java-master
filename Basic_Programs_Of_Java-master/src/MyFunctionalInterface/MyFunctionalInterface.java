@@ -1,3 +1,5 @@
+package MyFunctionalInterface;
+
 public interface MyFunctionalInterface {
 
 	void m1();

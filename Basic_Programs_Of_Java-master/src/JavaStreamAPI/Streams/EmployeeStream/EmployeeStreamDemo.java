@@ -1,6 +1,7 @@
 package JavaStreamAPI.Streams.EmployeeStream;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
@@ -32,6 +33,12 @@ public class EmployeeStreamDemo {
         employeeList.add(new Employee(255, "Ali Baig", 23, "Male", "Infrastructure", 2018, 12700.0));
         employeeList.add(new Employee(266, "Sanvi Pandey", 26, "Female", "Product Development", 2015, 28900.0));
         employeeList.add(new Employee(277, "Anuj Chettiar", 31, "Male", "Product Development", 2012, 35700.0));
+
+        //joining
+        List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+        String result = names.stream()
+                .collect(Collectors.joining(", ", "[", "]"));
+        System.out.println(result);  // Output: [Alice, Bob, Charlie]
 
         // Query 1 : How many male and female employees are there in the organization?
         method1();

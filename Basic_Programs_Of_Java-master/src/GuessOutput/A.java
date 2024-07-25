@@ -28,5 +28,20 @@ class Test {
         a.m1();// Ouput : In m1 B
         //a.m2();// Compilation Error
         a.method1();// Output: In m1 A
+
+        System.out.println("Second type");
+        A a1 = new A();
+        a1.m1();
+        //which m1 is called ? Ans: In m1 A
+
+        //B b = new A();
+        //b.m1();
+        //which m1 is called ? Ans: ClassCastException or Compilation Error
+
+
+
+
+
+
     }
 }

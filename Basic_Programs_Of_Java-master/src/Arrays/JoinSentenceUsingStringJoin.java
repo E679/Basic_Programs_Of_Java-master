@@ -3,6 +3,7 @@ package Arrays;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class JoinSentenceUsingStringJoin {
     public static void main(String[] args) {
@@ -11,6 +12,10 @@ public class JoinSentenceUsingStringJoin {
         String[] words = s.split(" ");
         String joinedSentence = String.join("-", words);
         System.out.println(joinedSentence);
+
+        //String joining
+        StringJoiner stringJoiner=new StringJoiner(",","[","]");
+
 
         //Join Each Letter
         String[] words1 = s.split("");

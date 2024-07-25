@@ -3,6 +3,7 @@ package Arrays;
 // Java Program to Remove Duplicate Elements
 // From the Array using extra space
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -60,6 +61,16 @@ public class removeDuplicateElementsInArray {
         for (int i =0;i<len;i++){
             System.out.print(arr[i]+" ");
         }
+
+        System.out.println("Using streams");
+        Arrays.stream(arr).distinct().forEach(System.out::println);
+        //Easy way to remove duplicates in an array
+        int[] array = {1, 2, 3, 4, 2, 5, 6, 3, 1};
+
+        int[] uniqueArray = removeDuplicates(array);
+
+        System.out.println("Original Array: " + Arrays.toString(array));
+        System.out.println("Array with Duplicates Removed: " + Arrays.toString(uniqueArray));
     }
 
     private static int[] sortedArray(int[] arr, int len) {
@@ -93,6 +104,24 @@ public class removeDuplicateElementsInArray {
         }
 
         return uniqueElements.size();
+    }
+    public static int[] removeDuplicates(int[] array) {
+        // Use a set to store unique elements
+        Set<Integer> set = new HashSet<>();
+
+        // Add all elements from array to set
+        for (int num : array) {
+            set.add(num);
+        }
+
+        // Convert set back to array
+        int[] uniqueArray = new int[set.size()];
+        int index = 0;
+        for (int num : set) {
+            uniqueArray[index++] = num;
+        }
+
+        return uniqueArray;
     }
 }
 
