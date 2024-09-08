@@ -17,6 +17,19 @@ public class Primenumber {
         //Prime numbers From GivenRange
         getPrimenumberFromGivenRange();
         getPrimenumberFrom1ToN();
+        //take integer n as input and return sum of all prime nums less than n
+        /*
+        example: Input: 10
+                 output: 17
+        explanation: The prime numbers less than 10 are 2,3,5,7 their sum is 17
+
+         */
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter number ");
+        int num=scanner.nextInt();
+        List<Integer> sumOfAllPrimesLessthanNum = getSumOfAllPrimesLessthanNum(num);
+        int sum = sumOfAllPrimesLessthanNum.stream().mapToInt(n -> n).sum();
+        System.out.println("sumOfAllPrimesLessthanNum is: "+sum);
     }
 
     private static void getPrimenumberFrom1ToN() {
@@ -103,5 +116,22 @@ public class Primenumber {
         }else {
             System.out.println("Not prime");
         }
+    }
+
+    private static List<Integer> getSumOfAllPrimesLessthanNum(int num) {
+        List<Integer> result=new ArrayList<>();
+        for (int i=1;i<=num;i++){
+            int count=0;
+            for (int j=1;j<=i;j++){
+                if (i%j==0){
+                    count++;
+                }
+            }
+            if(count==2){
+                result.add(i);
+            }
+        }
+        System.out.println("Prime numbers from list are: "+result);
+        return result;
     }
 }
