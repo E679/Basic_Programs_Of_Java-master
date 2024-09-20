@@ -2,6 +2,7 @@ package temp;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DistinctCharsAndTheirCount {
     public static void main(String[] args) {
@@ -18,5 +19,9 @@ public class DistinctCharsAndTheirCount {
             }
         }
         System.out.println("Chars and count are:\n"+map);
+
+        //Using Streams
+        Map<Character, Long> collect = str.chars().mapToObj(ch -> (char) ch).collect(Collectors.groupingBy(c -> c, Collectors.counting()));
+        System.out.println(collect);
     }
 }
