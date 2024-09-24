@@ -1,14 +1,7 @@
 package JavaStreamAPI.Streams.EmployeeStream;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.DoubleSummaryStatistics;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class EmployeeStreamDemo {
@@ -89,6 +82,14 @@ public class EmployeeStreamDemo {
         // Query 15 : Who is the oldest employee in the organization? What is his age
         // and which department he belongs to?
         method15();
+        //Query 16: Sort Employees by Name and Salary using stream
+        method16();
+        //Query 17: Group Employees by department using stream
+        method17();
+        //Query 18: Group Employees who are Eligible or Ineligible
+        method18();
+        //Query 19: Sort a Map based on keys and values
+        method19();
 
     }
 
@@ -119,13 +120,13 @@ public class EmployeeStreamDemo {
 
         //Get Highest salary another way
         Employee highestemployee = employeeList.stream().sorted(Comparator.comparingDouble(Employee::getSalary).reversed()).findFirst().orElse(null);
-        if(highestemployee!=null) {
-            System.out.println("highest salary: "+highestemployee.getSalary());
+        if (highestemployee != null) {
+            System.out.println("highest salary: " + highestemployee.getSalary());
         }
 
         Employee employee = employeeList.stream().sorted(Comparator.comparingDouble(Employee::getSalary).reversed()).skip(1).findFirst().orElse(null);
-        if(employee!=null) {
-            System.out.println("Second highest salary: "+employee.getSalary());
+        if (employee != null) {
+            System.out.println("Second highest salary: " + employee.getSalary());
         }
     }
 
@@ -149,23 +150,22 @@ public class EmployeeStreamDemo {
 
     public static void method7() {
         System.out.println("Query 7 : What is the average salary of each department?");
-        Map<String, Double> avgSalaryOfDepartments=
+        Map<String, Double> avgSalaryOfDepartments =
                 employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.averagingDouble(Employee::getSalary)));
 
         Set<Entry<String, Double>> entrySet = avgSalaryOfDepartments.entrySet();
 
-        for (Entry<String, Double> entry : entrySet)
-        {
-            System.out.println(entry.getKey()+" : "+entry.getValue());
+        for (Entry<String, Double> entry : entrySet) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
         }
     }
 
     public static void method8() {
         System.out
                 .println("Query 8 : Get the details of youngest male employee in the product development department?");
-        Optional<Employee> youngestMaleEmployeeInProductDevelopmentWrapper=
+        Optional<Employee> youngestMaleEmployeeInProductDevelopmentWrapper =
                 employeeList.stream()
-                        .filter(e -> e.getGender()=="Male" && e.getDepartment()=="Product Development")
+                        .filter(e -> e.getGender() == "Male" && e.getDepartment() == "Product Development")
                         .min(Comparator.comparingInt(Employee::getAge));
 
         Employee youngestMaleEmployeeInProductDevelopment = youngestMaleEmployeeInProductDevelopmentWrapper.get();
@@ -174,15 +174,15 @@ public class EmployeeStreamDemo {
 
         System.out.println("----------------------------------------------");
 
-        System.out.println("ID : "+youngestMaleEmployeeInProductDevelopment.getId());
+        System.out.println("ID : " + youngestMaleEmployeeInProductDevelopment.getId());
 
-        System.out.println("Name : "+youngestMaleEmployeeInProductDevelopment.getName());
+        System.out.println("Name : " + youngestMaleEmployeeInProductDevelopment.getName());
 
     }
 
     public static void method9() {
         System.out.println("Query 9 : Who has the most working experience in the organization?");
-        Optional<Employee> seniorMostEmployeeWrapper=
+        Optional<Employee> seniorMostEmployeeWrapper =
                 employeeList.stream().sorted(Comparator.comparingInt(Employee::getYearOfJoining)).findFirst();
 
         Employee seniorMostEmployee = seniorMostEmployeeWrapper.get();
@@ -191,16 +191,16 @@ public class EmployeeStreamDemo {
 
         System.out.println("----------------------------");
 
-        System.out.println("ID : "+seniorMostEmployee.getId());
+        System.out.println("ID : " + seniorMostEmployee.getId());
 
-        System.out.println("Name : "+seniorMostEmployee.getName());
+        System.out.println("Name : " + seniorMostEmployee.getName());
     }
 
     public static void method10() {
         System.out.println("Query 10 : How many male and female employees are there in the sales and marketing team?");
-        Map<String, Long> countMaleFemaleEmployeesInSalesMarketing=
+        Map<String, Long> countMaleFemaleEmployeesInSalesMarketing =
                 employeeList.stream()
-                        .filter(e -> e.getDepartment()=="Sales And Marketing")
+                        .filter(e -> e.getDepartment() == "Sales And Marketing")
                         .collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
 
         System.out.println(countMaleFemaleEmployeesInSalesMarketing);
@@ -208,7 +208,7 @@ public class EmployeeStreamDemo {
 
     public static void method11() {
         System.out.println("Query 11 : What is the average salary of male and female employees?");
-        Map<String, Double> avgSalaryOfMaleAndFemaleEmployees=
+        Map<String, Double> avgSalaryOfMaleAndFemaleEmployees =
                 employeeList.stream().collect(Collectors.groupingBy(Employee::getGender, Collectors.averagingDouble(Employee::getSalary)));
 
         System.out.println(avgSalaryOfMaleAndFemaleEmployees);
@@ -216,23 +216,21 @@ public class EmployeeStreamDemo {
 
     public static void method12() {
         System.out.println("Query 12 : List down the names of all employees in each department?");
-        Map<String, List<Employee>> employeeListByDepartment=
+        Map<String, List<Employee>> employeeListByDepartment =
                 employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment));
 
         Set<Entry<String, List<Employee>>> entrySet = employeeListByDepartment.entrySet();
 
-        for (Entry<String, List<Employee>> entry : entrySet)
-        {
+        for (Entry<String, List<Employee>> entry : entrySet) {
             System.out.println("--------------------------------------");
 
-            System.out.println("Employees In "+entry.getKey() + " : ");
+            System.out.println("Employees In " + entry.getKey() + " : ");
 
             System.out.println("--------------------------------------");
 
             List<Employee> list = entry.getValue();
 
-            for (Employee e : list)
-            {
+            for (Employee e : list) {
                 System.out.println(e.getName());
             }
         }
@@ -240,32 +238,28 @@ public class EmployeeStreamDemo {
 
     public static void method13() {
         System.out.println("Query 13 : What is the average salary and total salary of the whole organization?");
-        DoubleSummaryStatistics employeeSalaryStatistics=
+        DoubleSummaryStatistics employeeSalaryStatistics =
                 employeeList.stream().collect(Collectors.summarizingDouble(Employee::getSalary));
 
-        System.out.println("Average Salary = "+employeeSalaryStatistics.getAverage());
+        System.out.println("Average Salary = " + employeeSalaryStatistics.getAverage());
 
-        System.out.println("Total Salary = "+employeeSalaryStatistics.getSum());
+        System.out.println("Total Salary = " + employeeSalaryStatistics.getSum());
     }
 
     public static void method14() {
         System.out.println(
                 "Query 14 : Separate the employees who are younger or equal to 25 years from those employees who are older than 25 years.");
-        Map<Boolean, List<Employee>> partitionEmployeesByAge=
+        Map<Boolean, List<Employee>> partitionEmployeesByAge =
                 employeeList.stream().collect(Collectors.partitioningBy(e -> e.getAge() > 25));
 
         Set<Entry<Boolean, List<Employee>>> entrySet = partitionEmployeesByAge.entrySet();
 
-        for (Entry<Boolean, List<Employee>> entry : entrySet)
-        {
+        for (Entry<Boolean, List<Employee>> entry : entrySet) {
             System.out.println("----------------------------");
 
-            if (entry.getKey())
-            {
+            if (entry.getKey()) {
                 System.out.println("Employees older than 25 years :");
-            }
-            else
-            {
+            } else {
                 System.out.println("Employees younger than or equal to 25 years :");
             }
 
@@ -273,8 +267,7 @@ public class EmployeeStreamDemo {
 
             List<Employee> list = entry.getValue();
 
-            for (Employee e : list)
-            {
+            for (Employee e : list) {
                 System.out.println(e.getName());
             }
         }
@@ -287,12 +280,288 @@ public class EmployeeStreamDemo {
 
         Employee oldestEmployee = oldestEmployeeWrapper.get();
 
-        System.out.println("Name : "+oldestEmployee.getName());
+        System.out.println("Name : " + oldestEmployee.getName());
 
-        System.out.println("Age : "+oldestEmployee.getAge());
+        System.out.println("Age : " + oldestEmployee.getAge());
 
-        System.out.println("Department : "+oldestEmployee.getDepartment());
+        System.out.println("Department : " + oldestEmployee.getDepartment());
     }
+
+    private static void method16() {
+        System.out.println("Sort Employee By Name and Salary in Ascending");
+        employeeList.stream().sorted(Comparator.comparing(Employee::getName)
+                .thenComparing(Employee::getSalary)).forEach(System.out::println);
+        System.out.println("Sort Employee By Name and Salary in Descending");
+        employeeList.stream().sorted(Comparator.comparing(Employee::getName, Comparator.reverseOrder())
+                .thenComparing(Employee::getSalary, Comparator.reverseOrder())).forEach(System.out::println);
+    }
+
+    private static void method17() {
+        System.out.println("Group Employees by Dept");
+        Map<String, List<Employee>> empBydept = employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment));
+        System.out.println(empBydept);
+    }
+
+    private static void method18() {
+        System.out.println("Group Employees who are Eligible or Ineligible");
+       Map<String, List<Employee>> empeligibleAndIneligble= employeeList.stream().collect(Collectors.groupingBy(employee -> employee.getAge() >= 30 ? "Eligible" : "InEligible"));
+       System.out.println(empeligibleAndIneligble);
+    }
+
+    private static void method19() {
+        Map<String, Integer> map= new HashMap<>();
+        map.put("Narendra",32000);
+        map.put("Kiran",43000);
+        map.put("Gopal",45000);
+        map.put("Hari",65000);
+        map.put("john",65000);
+        map.put("Ruhi",2000);
+        map.put("prahi",2000);
+        map.put("Maanas",44000);
+        map.put("bunny",45000);
+
+        map.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(System.out::println);
+        map.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(System.out::println);
+        //get second Highest employee
+        //here using reverseorder because we need in descending order
+        Map.Entry<String, Integer> secondhighestemployee=map.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).collect(Collectors.toList()).get(1);
+        System.out.println("secondhighestemployee "+secondhighestemployee);
+        //get second Lowest employee
+        //here not using reverseorder because we need in ascending order
+        Map.Entry<String, Integer> secondlowestemployee = map.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toList()).get(1);
+        System.out.println("secondlowestemployee "+secondlowestemployee);
+
+        //this approach won't work when there are same salary values for different employees in the map
+        Map.Entry<String, Integer> results = getnthHighestSalary(2, map);
+        System.out.println("nthHighestSalary results "+results);
+        //below dynamic approach will work bcoz we group employees based on salary first
+        Entry<Integer, List<String>> salaryresult = getDynamicnthHighestSalary(2,map);
+        System.out.println(salaryresult);
+    }
+
+    private static Map.Entry<String, Integer> getnthHighestSalary(int num, Map<String, Integer> map) {
+        //here num-1 bcoz index starts from 0
+        return map.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).
+                collect(Collectors.toList()).get(num-1);
+    }
+
+    private static Map.Entry<Integer, List<String>> getDynamicnthHighestSalary(int num, Map<String, Integer> map) {
+        return map.entrySet().stream()
+                .collect(Collectors.groupingBy(Entry::getValue, Collectors.mapping(Entry::getKey, Collectors.toList())))
+                .entrySet().stream().sorted(Collections.reverseOrder(Entry.comparingByKey())).collect(Collectors.toList()).get(num-1);
+    }
+
+    /*
+    Outputs For Above All queries
+
+    [Alice, Bob, Charlie]
+Query 1 : How many male and female employees are there in the organization?
+{Male=11, Female=6}
+
+
+Query 2 : Print the name of all departments in the organization?
+HR
+Sales And Marketing
+Infrastructure
+Product Development
+Security And Transport
+Account And Finance
+
+
+Query 3 : What is the average age of male and female employees?
+{Male=30.181818181818183, Female=27.166666666666668}
+
+
+Query 4 : Get the details of highest paid employee in the organization?
+Anuj Chettiar
+highest salary: 35700.0
+Second highest salary: 34500.0
+
+
+Query 5 : Get the names of all employees who have joined after 2015?
+Iqbal Hussain
+Amelia Zoe
+Nitin Joshi
+Nicolus Den
+Ali Baig
+
+
+Query 6 : Count the number of employees in each department?
+Product Development : 5
+Security And Transport : 2
+Sales And Marketing : 3
+Infrastructure : 3
+HR : 2
+Account And Finance : 2
+
+
+Query 7 : What is the average salary of each department?
+Product Development : 31960.0
+Security And Transport : 10750.25
+Sales And Marketing : 11900.166666666666
+Infrastructure : 15466.666666666666
+HR : 23850.0
+Account And Finance : 24150.0
+
+
+Query 8 : Get the details of youngest male employee in the product development department?
+Details Of Youngest Male Employee In Product Development
+----------------------------------------------
+ID : 222
+Name : Nitin Joshi
+
+
+Query 9 : Who has the most working experience in the organization?
+Senior Most Employee Details :
+----------------------------
+ID : 177
+Name : Manu Sharma
+
+
+Query 10 : How many male and female employees are there in the sales and marketing team?
+{Female=1, Male=2}
+
+
+Query 11 : What is the average salary of male and female employees?
+{Male=21300.090909090908, Female=20850.0}
+
+
+Query 12 : List down the names of all employees in each department?
+--------------------------------------
+Employees In Product Development :
+--------------------------------------
+Murali Gowda
+Wang Liu
+Nitin Joshi
+Sanvi Pandey
+Anuj Chettiar
+--------------------------------------
+Employees In Security And Transport :
+--------------------------------------
+Iqbal Hussain
+Jaden Dough
+--------------------------------------
+Employees In Sales And Marketing :
+--------------------------------------
+Paul Niksui
+Amelia Zoe
+Nicolus Den
+--------------------------------------
+Employees In Infrastructure :
+--------------------------------------
+Martin Theron
+Jasna Kaur
+Ali Baig
+--------------------------------------
+Employees In HR :
+--------------------------------------
+Jiya Brein
+Nima Roy
+--------------------------------------
+Employees In Account And Finance :
+--------------------------------------
+Manu Sharma
+Jyothi Reddy
+
+
+Query 13 : What is the average salary and total salary of the whole organization?
+Average Salary = 21141.235294117647
+Total Salary = 359401.0
+
+
+Query 14 : Separate the employees who are younger or equal to 25 years from those employees who are older than 25 years.
+----------------------------
+Employees younger than or equal to 25 years :
+----------------------------
+Paul Niksui
+Amelia Zoe
+Nitin Joshi
+Nicolus Den
+Ali Baig
+----------------------------
+Employees older than 25 years :
+----------------------------
+Jiya Brein
+Martin Theron
+Murali Gowda
+Nima Roy
+Iqbal Hussain
+Manu Sharma
+Wang Liu
+Jaden Dough
+Jasna Kaur
+Jyothi Reddy
+Sanvi Pandey
+Anuj Chettiar
+
+
+Query 15 : Who is the oldest employee in the organization? What is his age and which department he belongs to?
+Name : Iqbal Hussain
+Age : 43
+Department : Security And Transport
+Sort Employee By Name and Salary in Ascending
+Id : 255, Name : Ali Baig, age : 23, Gender : Male, Department : Infrastructure, Year Of Joining : 2018, Salary : 12700.0
+Id : 199, Name : Amelia Zoe, age : 24, Gender : Female, Department : Sales And Marketing, Year Of Joining : 2016, Salary : 11500.0
+Id : 277, Name : Anuj Chettiar, age : 31, Gender : Male, Department : Product Development, Year Of Joining : 2012, Salary : 35700.0
+Id : 166, Name : Iqbal Hussain, age : 43, Gender : Male, Department : Security And Transport, Year Of Joining : 2016, Salary : 10500.0
+Id : 200, Name : Jaden Dough, age : 38, Gender : Male, Department : Security And Transport, Year Of Joining : 2015, Salary : 11000.5
+Id : 211, Name : Jasna Kaur, age : 27, Gender : Female, Department : Infrastructure, Year Of Joining : 2014, Salary : 15700.0
+Id : 111, Name : Jiya Brein, age : 32, Gender : Female, Department : HR, Year Of Joining : 2011, Salary : 25000.0
+Id : 233, Name : Jyothi Reddy, age : 27, Gender : Female, Department : Account And Finance, Year Of Joining : 2013, Salary : 21300.0
+Id : 177, Name : Manu Sharma, age : 35, Gender : Male, Department : Account And Finance, Year Of Joining : 2010, Salary : 27000.0
+Id : 133, Name : Martin Theron, age : 29, Gender : Male, Department : Infrastructure, Year Of Joining : 2012, Salary : 18000.0
+Id : 144, Name : Murali Gowda, age : 28, Gender : Male, Department : Product Development, Year Of Joining : 2014, Salary : 32500.0
+Id : 244, Name : Nicolus Den, age : 24, Gender : Male, Department : Sales And Marketing, Year Of Joining : 2017, Salary : 10700.5
+Id : 155, Name : Nima Roy, age : 27, Gender : Female, Department : HR, Year Of Joining : 2013, Salary : 22700.0
+Id : 222, Name : Nitin Joshi, age : 25, Gender : Male, Department : Product Development, Year Of Joining : 2016, Salary : 28200.0
+Id : 122, Name : Paul Niksui, age : 25, Gender : Male, Department : Sales And Marketing, Year Of Joining : 2015, Salary : 13500.0
+Id : 266, Name : Sanvi Pandey, age : 26, Gender : Female, Department : Product Development, Year Of Joining : 2015, Salary : 28900.0
+Id : 188, Name : Wang Liu, age : 31, Gender : Male, Department : Product Development, Year Of Joining : 2015, Salary : 34500.0
+Sort Employee By Name and Salary in Descending
+Id : 188, Name : Wang Liu, age : 31, Gender : Male, Department : Product Development, Year Of Joining : 2015, Salary : 34500.0
+Id : 266, Name : Sanvi Pandey, age : 26, Gender : Female, Department : Product Development, Year Of Joining : 2015, Salary : 28900.0
+Id : 122, Name : Paul Niksui, age : 25, Gender : Male, Department : Sales And Marketing, Year Of Joining : 2015, Salary : 13500.0
+Id : 222, Name : Nitin Joshi, age : 25, Gender : Male, Department : Product Development, Year Of Joining : 2016, Salary : 28200.0
+Id : 155, Name : Nima Roy, age : 27, Gender : Female, Department : HR, Year Of Joining : 2013, Salary : 22700.0
+Id : 244, Name : Nicolus Den, age : 24, Gender : Male, Department : Sales And Marketing, Year Of Joining : 2017, Salary : 10700.5
+Id : 144, Name : Murali Gowda, age : 28, Gender : Male, Department : Product Development, Year Of Joining : 2014, Salary : 32500.0
+Id : 133, Name : Martin Theron, age : 29, Gender : Male, Department : Infrastructure, Year Of Joining : 2012, Salary : 18000.0
+Id : 177, Name : Manu Sharma, age : 35, Gender : Male, Department : Account And Finance, Year Of Joining : 2010, Salary : 27000.0
+Id : 233, Name : Jyothi Reddy, age : 27, Gender : Female, Department : Account And Finance, Year Of Joining : 2013, Salary : 21300.0
+Id : 111, Name : Jiya Brein, age : 32, Gender : Female, Department : HR, Year Of Joining : 2011, Salary : 25000.0
+Id : 211, Name : Jasna Kaur, age : 27, Gender : Female, Department : Infrastructure, Year Of Joining : 2014, Salary : 15700.0
+Id : 200, Name : Jaden Dough, age : 38, Gender : Male, Department : Security And Transport, Year Of Joining : 2015, Salary : 11000.5
+Id : 166, Name : Iqbal Hussain, age : 43, Gender : Male, Department : Security And Transport, Year Of Joining : 2016, Salary : 10500.0
+Id : 277, Name : Anuj Chettiar, age : 31, Gender : Male, Department : Product Development, Year Of Joining : 2012, Salary : 35700.0
+Id : 199, Name : Amelia Zoe, age : 24, Gender : Female, Department : Sales And Marketing, Year Of Joining : 2016, Salary : 11500.0
+Id : 255, Name : Ali Baig, age : 23, Gender : Male, Department : Infrastructure, Year Of Joining : 2018, Salary : 12700.0
+Group Employees by Dept
+{Product Development=[Id : 144, Name : Murali Gowda, age : 28, Gender : Male, Department : Product Development, Year Of Joining : 2014, Salary : 32500.0, Id : 188, Name : Wang Liu, age : 31, Gender : Male, Department : Product Development, Year Of Joining : 2015, Salary : 34500.0, Id : 222, Name : Nitin Joshi, age : 25, Gender : Male, Department : Product Development, Year Of Joining : 2016, Salary : 28200.0, Id : 266, Name : Sanvi Pandey, age : 26, Gender : Female, Department : Product Development, Year Of Joining : 2015, Salary : 28900.0, Id : 277, Name : Anuj Chettiar, age : 31, Gender : Male, Department : Product Development, Year Of Joining : 2012, Salary : 35700.0], Security And Transport=[Id : 166, Name : Iqbal Hussain, age : 43, Gender : Male, Department : Security And Transport, Year Of Joining : 2016, Salary : 10500.0, Id : 200, Name : Jaden Dough, age : 38, Gender : Male, Department : Security And Transport, Year Of Joining : 2015, Salary : 11000.5], Sales And Marketing=[Id : 122, Name : Paul Niksui, age : 25, Gender : Male, Department : Sales And Marketing, Year Of Joining : 2015, Salary : 13500.0, Id : 199, Name : Amelia Zoe, age : 24, Gender : Female, Department : Sales And Marketing, Year Of Joining : 2016, Salary : 11500.0, Id : 244, Name : Nicolus Den, age : 24, Gender : Male, Department : Sales And Marketing, Year Of Joining : 2017, Salary : 10700.5], Infrastructure=[Id : 133, Name : Martin Theron, age : 29, Gender : Male, Department : Infrastructure, Year Of Joining : 2012, Salary : 18000.0, Id : 211, Name : Jasna Kaur, age : 27, Gender : Female, Department : Infrastructure, Year Of Joining : 2014, Salary : 15700.0, Id : 255, Name : Ali Baig, age : 23, Gender : Male, Department : Infrastructure, Year Of Joining : 2018, Salary : 12700.0], HR=[Id : 111, Name : Jiya Brein, age : 32, Gender : Female, Department : HR, Year Of Joining : 2011, Salary : 25000.0, Id : 155, Name : Nima Roy, age : 27, Gender : Female, Department : HR, Year Of Joining : 2013, Salary : 22700.0], Account And Finance=[Id : 177, Name : Manu Sharma, age : 35, Gender : Male, Department : Account And Finance, Year Of Joining : 2010, Salary : 27000.0, Id : 233, Name : Jyothi Reddy, age : 27, Gender : Female, Department : Account And Finance, Year Of Joining : 2013, Salary : 21300.0]}
+Group Employees who are Eligible or Ineligible
+{InEligible=[Id : 122, Name : Paul Niksui, age : 25, Gender : Male, Department : Sales And Marketing, Year Of Joining : 2015, Salary : 13500.0, Id : 133, Name : Martin Theron, age : 29, Gender : Male, Department : Infrastructure, Year Of Joining : 2012, Salary : 18000.0, Id : 144, Name : Murali Gowda, age : 28, Gender : Male, Department : Product Development, Year Of Joining : 2014, Salary : 32500.0, Id : 155, Name : Nima Roy, age : 27, Gender : Female, Department : HR, Year Of Joining : 2013, Salary : 22700.0, Id : 199, Name : Amelia Zoe, age : 24, Gender : Female, Department : Sales And Marketing, Year Of Joining : 2016, Salary : 11500.0, Id : 211, Name : Jasna Kaur, age : 27, Gender : Female, Department : Infrastructure, Year Of Joining : 2014, Salary : 15700.0, Id : 222, Name : Nitin Joshi, age : 25, Gender : Male, Department : Product Development, Year Of Joining : 2016, Salary : 28200.0, Id : 233, Name : Jyothi Reddy, age : 27, Gender : Female, Department : Account And Finance, Year Of Joining : 2013, Salary : 21300.0, Id : 244, Name : Nicolus Den, age : 24, Gender : Male, Department : Sales And Marketing, Year Of Joining : 2017, Salary : 10700.5, Id : 255, Name : Ali Baig, age : 23, Gender : Male, Department : Infrastructure, Year Of Joining : 2018, Salary : 12700.0, Id : 266, Name : Sanvi Pandey, age : 26, Gender : Female, Department : Product Development, Year Of Joining : 2015, Salary : 28900.0], Eligible=[Id : 111, Name : Jiya Brein, age : 32, Gender : Female, Department : HR, Year Of Joining : 2011, Salary : 25000.0, Id : 166, Name : Iqbal Hussain, age : 43, Gender : Male, Department : Security And Transport, Year Of Joining : 2016, Salary : 10500.0, Id : 177, Name : Manu Sharma, age : 35, Gender : Male, Department : Account And Finance, Year Of Joining : 2010, Salary : 27000.0, Id : 188, Name : Wang Liu, age : 31, Gender : Male, Department : Product Development, Year Of Joining : 2015, Salary : 34500.0, Id : 200, Name : Jaden Dough, age : 38, Gender : Male, Department : Security And Transport, Year Of Joining : 2015, Salary : 11000.5, Id : 277, Name : Anuj Chettiar, age : 31, Gender : Male, Department : Product Development, Year Of Joining : 2012, Salary : 35700.0]}
+Gopal=45000
+Hari=65000
+Kiran=43000
+Maanas=44000
+Narendra=32000
+Ruhi=2000
+bunny=45000
+john=65000
+prahi=2000
+Ruhi=2000
+prahi=2000
+Narendra=32000
+Kiran=43000
+Maanas=44000
+bunny=45000
+Gopal=45000
+Hari=65000
+john=65000
+secondhighestemployee john=65000
+secondlowestemployee prahi=2000
+nthHighestSalary results john=65000
+45000=[bunny, Gopal]
+     */
 
 }
 
