@@ -1,6 +1,7 @@
 package Strings;
 
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ReverseEachWordsCharactersInString {
     public static void main(String[] args) {
@@ -29,5 +30,27 @@ public class ReverseEachWordsCharactersInString {
         }
 
         System.out.println("Reversed String: "+reversedStr);
+
+        //Above Scenario using streams
+        String reversedStringUsingStreams = getReversedStringUsingStreams(str);
+        System.out.println("reversedStringUsingStreams "+reversedStringUsingStreams);
+        //Using streams another expected output
+        String reversedStringUsingStreamsanotherexpectedoutput = getReversedStringUsingStreamsanotherexpectedoutput(str);
+        System.out.println("reversedStringUsingStreamsanotherexpectedoutput"+reversedStringUsingStreamsanotherexpectedoutput);
     }
+
+    private static String getReversedStringUsingStreams(String str) {
+        String reversedString = Arrays.stream(str.split("\\s")).map(String::toLowerCase).map(w -> new StringBuilder(w).reverse().toString()).collect(Collectors.joining(" "));
+        return reversedString;
+    }
+
+    private static String getReversedStringUsingStreamsanotherexpectedoutput(String str) {
+        //Input: Original String: how to do in Java
+        //Output: avaj ni od ot woh
+        StringBuilder rev=new StringBuilder();
+        String[] words = str.split("\\s");
+        Arrays.stream(words).map(String::toLowerCase).map(w->rev.append(w+" ").toString()).collect(Collectors.joining(" "));
+        return rev.reverse().toString();
+    }
+
 }
