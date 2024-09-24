@@ -1,4 +1,4 @@
-package JavaStreamAPI;
+package JavaStreamAPI.FrequencyOccurencesUsingStreams;
 
 import java.util.Arrays;
 import java.util.Map;
