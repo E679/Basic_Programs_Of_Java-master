@@ -1,5 +1,6 @@
 package JavaStreamAPI;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 public class StreamAPIOperations {
@@ -103,9 +104,13 @@ public class StreamAPIOperations {
         List<Integer> str1=Stream.iterate(40,n->n+2).limit(10).collect(Collectors.toList());
         System.out.println(str1);
 
+        // Find first non repeating character in a string
 
+        String s = "swiss";
 
-
+        Map<Character, Long> map = s.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(c -> c, Collectors.counting()));
+        Character firstNonRepeatingCharacter = map.entrySet().stream().filter(c -> c.getValue() == 1).map(c -> c.getKey()).findFirst().orElse('0');
+        System.out.println("first non repeating character in a string : " + firstNonRepeatingCharacter);
     }
 
 }
