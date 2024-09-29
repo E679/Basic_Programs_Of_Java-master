@@ -90,7 +90,8 @@ public class EmployeeStreamDemo {
         method18();
         //Query 19: Sort a Map based on keys and values
         method19();
-
+        //Query 20: Given an Employee list, sort employees based on their salaries in desc order
+        method20();
     }
 
     public static void method1() {
@@ -349,6 +350,17 @@ public class EmployeeStreamDemo {
         return map.entrySet().stream()
                 .collect(Collectors.groupingBy(Entry::getValue, Collectors.mapping(Entry::getKey, Collectors.toList())))
                 .entrySet().stream().sorted(Collections.reverseOrder(Entry.comparingByKey())).collect(Collectors.toList()).get(num-1);
+    }
+
+    private static void method20() {
+        List<Employee> employeesInDescOrder = employeeList.stream().sorted((o1, o2) -> (int) (o2.getSalary() - o1.getSalary())).collect(Collectors.toList());
+        System.out.println("employeesInDescOrder: " + employeesInDescOrder);
+        //Fetch top 3 salaried employees details
+        List<Employee> top3Employees = employeeList.stream().sorted((o1, o2) -> (int) (o2.getSalary() - o1.getSalary())).limit(3).collect(Collectors.toList());
+        System.out.println("Top 3 salaried employees: " + top3Employees);
+        //Fetch all employees having salary less than 3rd highest salary ?
+        List<Employee> employeesWithLowestSalaryThan3rdHighest = employeeList.stream().sorted((o1, o2) -> (int) (o2.getSalary() - o1.getSalary())).skip(3).collect(Collectors.toList());
+        System.out.println("employeesWithLowestSalaryThan3rdHighest: " + employeesWithLowestSalaryThan3rdHighest);
     }
 
     /*
