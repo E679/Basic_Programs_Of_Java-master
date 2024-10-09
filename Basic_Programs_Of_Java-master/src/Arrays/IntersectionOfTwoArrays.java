@@ -3,6 +3,8 @@ package Arrays;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class IntersectionOfTwoArrays {
     /*
@@ -15,6 +17,17 @@ public class IntersectionOfTwoArrays {
         //intersectionOfTwoArrays: [2, 2, 3]
         List<Integer> intersectionOfTwoArrays = getIntersectionOfTwoArrays(arr1, arr2);
         System.out.println("intersectionOfTwoArrays: "+intersectionOfTwoArrays);
+
+        int[] arr3 = {1, 2, 2, 3, 4};
+        int[] arr4 = {2, 3, 5};
+
+        Set<Integer> intersection = Arrays.stream(arr1)
+                .distinct()
+                .filter(x -> Arrays.stream(arr2).anyMatch(y -> y == x))
+                .boxed()
+                .collect(Collectors.toSet());
+
+        System.out.println("Unique elements Intersection Using streams: " + intersection);
     }
 
     private static List<Integer> getIntersectionOfTwoArrays(int[] arr1, int[] arr2) {
