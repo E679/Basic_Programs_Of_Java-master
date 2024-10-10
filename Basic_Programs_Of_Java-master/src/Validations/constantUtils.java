@@ -1,6 +1,5 @@
 package Validations;
 
-import org.junit.platform.commons.util.StringUtils;
 
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
@@ -29,7 +28,7 @@ public class constantUtils {
     }
 
     public static boolean matchesValidRegex(String value, String[] validationRegex) {
-        if(StringUtils.isNotBlank(value)){
+        if((!value.isEmpty()) && (!value.isBlank())){
             String[] arr=validationRegex;
             int len=validationRegex.length;
 

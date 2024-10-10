@@ -83,7 +83,7 @@ public class nthHighestSalary {
         map.put("Abrar", 30000);
         map.put("Chand", 80000);
         map.put("kalam", 70000);
-        map.put("Raheem", 25000);
+        map.put("Ram", 25000);
         map.put("Kiran", 63000);
         map.put("Esa", 45000);
 
