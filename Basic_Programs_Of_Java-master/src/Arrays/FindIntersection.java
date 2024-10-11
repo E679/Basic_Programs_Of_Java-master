@@ -9,8 +9,10 @@ public class FindIntersection {
         String[] firstList = strArr[0].split(",\\s*");
         String[] secondList = strArr[1].split(",\\s*");
 
+        //Convert array to list
+        List<String> list = Arrays.asList(firstList);
         // Convert the first list to a Set for easy lookup
-        Set<String> firstSet = new HashSet<>(Arrays.asList(firstList));
+        Set<String> firstSet = new HashSet<>(list);
 
         // Find the intersection using streams
         List<String> intersection = Arrays.stream(secondList)
