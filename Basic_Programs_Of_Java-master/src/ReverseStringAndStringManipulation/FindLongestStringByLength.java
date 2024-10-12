@@ -16,6 +16,15 @@ public class FindLongestStringByLength {
         String res="";
         res= Arrays.stream(words).reduce((word1, word2)->word1.length()>word2.length()?word1:word2).get();
         System.out.println("Using stream: "+res);
+        //If String contains special characters do not consider them
+        /*
+        Input: "fun&!! time"
+        Output: time
+         */
+        String s="fun&!! time";
+        String[] split=s.replaceAll("[^a-zA-Z0-9 ]", "").split("\\s");
+        Arrays.sort(split,((o1, o2) -> o2.length()-o1.length()));
+        System.out.println("Longest word which doesnot have special chars is: "+split[0]);
     }
     private static String getLongestString(String[] words) {
         String largestWord="";
