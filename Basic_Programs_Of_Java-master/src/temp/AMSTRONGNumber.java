@@ -1,5 +1,9 @@
 package temp;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 public class AMSTRONGNumber {
     public static void main(String[] args) {
         /*
@@ -20,5 +24,11 @@ public class AMSTRONGNumber {
         } else {
             System.out.println(n+" is Not an Amstrong Number");
         }
+        System.out.println(getamsnumber(n,numberLength));
+    }
+
+    public static int getamsnumber(int n,int numberLength){
+        int originalNumber = n;
+        return String.valueOf(n).chars().map(Character::getNumericValue).map(digit -> (int) Math.pow(digit, numberLength)).sum();
     }
 }
