@@ -1,5 +1,8 @@
 package temp;
 
+import java.util.Map;
+import java.util.HashMap;
+
 public class FindDuplicateCharactersInString {
     public static void main(String[] args) {
         String str = "Maximum and Minimum";
@@ -29,5 +32,25 @@ public class FindDuplicateCharactersInString {
     private static boolean checkVowelIsPresentOrNot(String str) {
         return str.toLowerCase().matches(".*[aeiou].*");
     }
+
+    public Map<String, Integer> countVowelsAndConsonants(String str) {
+        Map<String, Integer> count = new HashMap<>();
+        int vowels = 0, consonants = 0;
+
+        for (char c : str.toLowerCase().toCharArray()) {
+            if (Character.isLetter(c)) {
+                if ("aeiou".indexOf(c) != -1) {
+                    vowels++;
+                } else {
+                    consonants++;
+                }
+            }
+        }
+
+        count.put("vowels", vowels);
+        count.put("consonants", consonants);
+        return count;
+    }
+
 
 }
