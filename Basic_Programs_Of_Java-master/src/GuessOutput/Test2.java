@@ -18,5 +18,13 @@ class Test2 {
         System.out.println(t.getData());//Output : 5
         System.out.println(t.getData(1));//Output : 6
         System.out.println(t.getData(7,8));//Output : 7
+
+        int x = 10;
+        int y = x++;
+        int z = ++x;
+
+        System.out.println("y= "+y);//10
+        System.out.println("z= "+z);//12
+        System.out.println("x= "+x);//12
     }
 }

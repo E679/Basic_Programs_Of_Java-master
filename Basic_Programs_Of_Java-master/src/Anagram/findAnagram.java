@@ -1,4 +1,4 @@
-package Strings;
+package Anagram;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -148,7 +148,7 @@ public class findAnagram {
         String a = scan.next();
         String b = scan.next();
         scan.close();
-        boolean ret = isAnagram(a, b);
+        boolean ret = isAnagramOldway(a, b);
         System.out.println((ret) ? "Anagrams" : "Not Anagrams");
     }
 }

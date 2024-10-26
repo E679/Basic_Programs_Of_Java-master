@@ -16,7 +16,7 @@ class Singleton {
         System.out.println("Singleton instance created");
     }
 
-    // Method to maintain singleton property during deserialization
+    // Method to maintain singleton property during deserialization to avoid reaking singleton rule
     protected Object readResolve() {
         return getInstance();
     }
