@@ -6,5 +6,8 @@ public class twoSumClas extends Solution{
         int target =9;
         Solution s=new Solution();
         s.twoSum(nums,target);
+
+        TwoSumUsingHashMap twoSumUsingHashMap=new TwoSumUsingHashMap();
+        twoSumUsingHashMap.twoSum(nums,target);
     }
 }
