@@ -30,7 +30,7 @@ public class BinarySearch {
     {
         int low = 0, high = arr.length - 1;
         while (low <= high) {
-            int mid = low + (high - low) / 2;
+            int mid = low + (high - low) / 2;//to avoid integer overflow in Binary Search.
 
             // Check if x is present at mid
             if (arr[mid] == x)

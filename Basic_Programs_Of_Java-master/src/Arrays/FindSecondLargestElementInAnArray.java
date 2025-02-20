@@ -20,6 +20,8 @@ public class FindSecondLargestElementInAnArray {
                 .mapToInt(Integer::intValue)
                 .findFirst(); // Get the second largest number
 
+        int asInt = Arrays.stream(numbers).distinct().sorted().skip(numbers.length - 2).findFirst().getAsInt();
+
         // Print result
         if (secondLargest.isPresent()) {
             System.out.println("Second Largest: " + secondLargest.getAsInt());
@@ -46,5 +48,12 @@ public class FindSecondLargestElementInAnArray {
             }
         }
         return secondHighest;
+        /*
+        Explanation:
+        Initialization: Two variables largest and secondLargest are initialized to Integer.MIN_VALUE to ensure any number in the array will be larger than these values.
+        Loop: We loop through the array.
+        If the current number is greater than largest, we update secondLargest to be the previous largest, and then set largest to the current number.
+        If the number is not greater than largest but is greater than secondLargest, we update secondLargest.
+         */
     }
 }
