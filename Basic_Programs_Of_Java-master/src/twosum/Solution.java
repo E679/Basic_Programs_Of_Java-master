@@ -42,3 +42,24 @@ class TwoSumUsingHashMap
         return result;
     }
 }
+class TwoSum {
+    public static int[] findTwoSum(int[] nums, int target) {
+        // HashMap to store the value and its index
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i]; // Calculate the other number required to form the target sum
+
+            // Check if the complement is already in the map
+            if (map.containsKey(complement)) {
+                return new int[]{map.get(complement), i};
+            }
+
+            // Store the value and its index in the HashMap
+            map.put(nums[i], i);
+        }
+
+        // Return an empty array if no solution is found
+        return new int[]{};
+    }
+}

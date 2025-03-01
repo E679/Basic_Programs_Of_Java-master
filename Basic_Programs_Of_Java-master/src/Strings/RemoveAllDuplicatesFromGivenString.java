@@ -1,6 +1,8 @@
 package Strings;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 /*
 Example:
 
@@ -48,5 +50,22 @@ public class RemoveAllDuplicatesFromGivenString {
         char str[] = "geeksforgeeks".toCharArray();
         int n = str.length;
         System.out.println(removeDuplicate(str, n));
+        String str1="geeksforgeeks";
+        Set<Character> set=new HashSet<>();
+        str1.chars().mapToObj(c->(char)c).filter(x->!set.add(x)).collect(Collectors.toSet());
     }
+    //Another way using set
+    public static String removeDuplicatesUsingSet(String str) {
+        Set<Character> seen = new LinkedHashSet<>();
+        StringBuilder result = new StringBuilder();
+
+        for (char ch : str.toCharArray()) {
+            if (seen.add(ch)) { // Adds only if not already present
+                result.append(ch);
+            }
+        }
+
+        return result.toString();
+    }
+
 }

@@ -34,6 +34,8 @@ public class FindSecondLargestElementInAnArray {
         String s = "I am interested123455 to grow in my organization";
         String s1 = Arrays.stream(s.split("\\s")).sorted(Comparator.comparing(String::length).reversed()).skip(1).findFirst().get();
         System.out.println(s1);
+        //find the word that has the highest length.
+        Arrays.stream(s.split("\\s")).max(Comparator.comparing(String::length)).ifPresent(System.out::println);
     }
 
     static int findSecondLargestElementInAnArray(int[] nums) {

@@ -1,5 +1,6 @@
 package mapVsflatMap;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,5 +31,15 @@ public class MapVsFlatMap {
                 .flatMap(customer -> customer.getPhoneNumbers().stream())
                 .collect(Collectors.toList());
         System.out.println("Flatmap : "+phones);
+
+        //FlatMap example
+        List<List<String>> list3= Arrays.asList(
+                Arrays.asList("apple","banana","carrot"),
+                Arrays.asList("guava","banana","carrot"),
+                Arrays.asList("apple","banana","carrot")
+        );
+
+        List<String> collect = list3.stream().flatMap(List::stream).distinct().collect(Collectors.toList());
+        System.out.println("Flatmap result "+collect);
     }
 }
