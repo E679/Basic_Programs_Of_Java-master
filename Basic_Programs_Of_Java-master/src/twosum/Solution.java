@@ -5,16 +5,13 @@ import java.util.HashMap;
 
 class Solution {
 
-    public int[] twoSum(int[] nums, int target)  {
+    public int[] twoSum(int[] nums, int target) {
 
-        for(int i=0;i<nums.length;i++)
-        {
-            for(int j=i+1;j<nums.length;j++)
-            {
-                if(nums[j]==target-nums[i])
-                {
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] == target - nums[i]) {
 
-                    return new int[] {i,j};
+                    return new int[]{i, j};
 
                 }
             }
@@ -23,25 +20,37 @@ class Solution {
     }
 }
 
-class TwoSumUsingHashMap
-{
-    public int[] twoSum(int[] nums, int target)
-    {
-        HashMap<Integer,Integer> map=new HashMap<>();
-        int [] result=new int[2];
-        for(int i=0;i<nums.length;i++)
-        {
-            if(map.containsKey(target-nums[i]))
-            {
-                result[0]=i;
-                result[1]=map.get(target-nums[i]);
+class TwoSumUsingHashMap {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int[] result = new int[2];
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(target - nums[i])) {
+                result[0] = i;
+                result[1] = map.get(target - nums[i]);
             }
-            map.put(nums[i],i);
+            map.put(nums[i], i);
         }
         System.out.println(Arrays.toString(result));
         return result;
     }
+
+    public int[] twoSumUsingTwoPointerSolution(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            if (nums[left] + nums[right] > target) {
+                right--;
+            } else if (nums[left] + nums[right] < target) {
+                left++;
+            } else if (nums[left] + nums[right] == target) {
+                return new int[]{left, right};
+            }
+        }
+        return new int[]{};
+    }
 }
+
 class TwoSum {
     public static int[] findTwoSum(int[] nums, int target) {
         // HashMap to store the value and its index

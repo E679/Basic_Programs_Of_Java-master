@@ -30,6 +30,28 @@ public class Primenumber {
         List<Integer> sumOfAllPrimesLessthanNum = getSumOfAllPrimesLessthanNum(num);
         int sum = sumOfAllPrimesLessthanNum.stream().mapToInt(n -> n).sum();
         System.out.println("sumOfAllPrimesLessthanNum is: "+sum);
+        int[] arr={2,3,5,7,4,6,27};
+        int numberOfPrimes = getNumberOfPrimes(arr);
+        System.out.println("Number of Primes are: "+numberOfPrimes);
+    }
+
+    private static int getNumberOfPrimes(int[] arr) {
+        int count=0;
+        for(int n:arr){
+            if(isPrime(n)){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private static boolean isPrime(int n) {
+        for(int i=2;i<=n/2;++i){
+            if (n%i==0){
+                return false;
+            }
+        }
+        return true;
     }
 
     private static void getPrimenumberFrom1ToN() {
