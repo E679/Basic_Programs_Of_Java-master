@@ -21,6 +21,8 @@ public interface MyFunctionalInterface1 {
                 return s1.compareTo(s2);
             }
         };
+        int compared = comparator.compare("Jeny", "Miny");
+        System.out.println("Compared "+compared);
 
 // Using lambda expression
         Comparator<String> lambdaComparator = (s1, s2) -> s1.compareTo(s2);
