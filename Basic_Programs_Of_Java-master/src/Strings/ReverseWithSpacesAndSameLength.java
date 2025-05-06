@@ -10,6 +10,8 @@ public class ReverseWithSpacesAndSameLength {
         System.out.println(result); // Output: oc tics ie siemanym
         String s = reversePreservingFormat(input);
         System.out.println(s);
+        String s1 = reversePreservingFormat("a-bC-dEf-ghIj");
+        System.out.println(s1.equals("j-Ih-gfE-dCba"));
     }
 
     public static String reversePreserveSpaces(String input) {
