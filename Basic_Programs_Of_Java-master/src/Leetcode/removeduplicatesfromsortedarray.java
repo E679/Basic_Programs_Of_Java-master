@@ -4,8 +4,12 @@ import java.util.HashSet;
 
 public class removeduplicatesfromsortedarray {
     public static void main(String[] args) {
-        int i = removeDuplicates(new int[]{1, 1, 2});
-        System.out.println(i);
+        int[] ints = {1, 1, 2};
+        int in = removeDuplicates(ints);
+        System.out.println("Length of the array without duplicates kth way: ");
+        for (int i = 0; i < in; i++) {
+            System.out.println(ints[i] + " ");
+        }
         //Traditional way to remove duplicates from an integer array
         int[] nums = {4, 3, 2, 4, 1, 3, 6, 2, 7};
 
@@ -15,7 +19,30 @@ public class removeduplicatesfromsortedarray {
             System.out.print(num + " ");
         }
 
+        //Another way where pointer is 0
+        int[] arr = {1, 1, 2, 2, 3, 4, 4, 5};
+        int length = removeDuplicatesAnotherway(arr);
+        // Print the array without duplicates
+        System.out.println("Length of the array without duplicates another way: ");
+        for (int i = 0; i < length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+
     }
+
+    private static int removeDuplicatesAnotherway(int[] arr) {
+        if (arr.length == 0) return 0;
+
+        int j = 0; // Pointer for unique elements
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] != arr[j]) {
+                j++;
+                arr[j] = arr[i];
+            }
+        }
+        return j + 1; // Length of the array without duplicates
+    }
+
     public static int removeDuplicates(int[] nums) {
         if (nums.length == 0) return 0;
 

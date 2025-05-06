@@ -9,14 +9,15 @@ public class MergeIntervals {
         intervals.addAll(Arrays.asList(interval2));
 
         // Sort intervals based on the start value
-        intervals.sort(Comparator.comparingInt(a -> a[0]));
+        intervals.sort(Comparator.comparingInt(a -> a[0]));//- Sort the list of intervals based on the `start` value of each interval. Sorting ensures that intervals appear in sequential order, making it easier to merge them without missing cases.
 
         List<int[]> merged = new ArrayList<>();
         for (int[] interval : intervals) {
             if (merged.isEmpty() || merged.get(merged.size() - 1)[1] < interval[0]) {
-                merged.add(interval);
+                merged.add(interval);// No overlap, add interval as is
             } else {
                 merged.get(merged.size() - 1)[1] = Math.max(merged.get(merged.size() - 1)[1], interval[1]);
+                // Overlap, merge by updating the 'end' of the last interval.
             }
         }
 
