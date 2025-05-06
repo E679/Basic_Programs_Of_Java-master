@@ -7,7 +7,7 @@ public class ReverseWithSpacesAndSameLength {
     public static void main(String[] args) {
         String input = "my name is supreeth";
         String result = reversePreserveSpaces(input);
-        System.out.println(result); // Output: oc tics ie manym
+        System.out.println(result); // Output: oc tics ie siemanym
         String s = reversePreservingFormat(input);
         System.out.println(s);
     }
