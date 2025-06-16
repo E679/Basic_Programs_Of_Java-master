@@ -12,6 +12,8 @@ public class ReverseWithSpacesAndSameLength {
         System.out.println(s);
         String s1 = reversePreservingFormat("a-bC-dEf-ghIj");
         System.out.println(s1.equals("j-Ih-gfE-dCba"));
+        String s2 = reversePreservingFormat2(input);
+        //System.out.println(s2.equals("ht eerp us siemanym"));
     }
 
     public static String reversePreserveSpaces(String input) {
@@ -29,7 +31,7 @@ public class ReverseWithSpacesAndSameLength {
         int j = inputArr.length - 1;
         for (int i = 0; i < inputArr.length; i++) {
             if (inputArr[i] != ' ') {
-                while (result[j] == ' ') {
+                if (result[j] == ' ') {
                     j--;
                 }
                 result[j] = inputArr[i];
@@ -64,6 +66,29 @@ public class ReverseWithSpacesAndSameLength {
         }
 
         return result.toString();
+    }
+    //Easy Way Using Two Pointer Approach
+    private static String reversePreservingFormat2(String s) {
+        //String s = "my name is supreeth";
+//Output: ht eerp us siemanym
+        char[] chars = s.toCharArray();
+        int left = 0, right = chars.length - 1;
+        while (left < right) {
+            if (!Character.isLetter(chars[left])) {
+                left++;
+            } else if (!Character.isLetter(chars[right])) {
+                right--;
+            } else {
+                char temp = chars[left];
+                chars[left] = chars[right];
+                chars[right] = temp;
+                left++; right--;
+            }
+        }
+        String res = new String(chars);
+        System.out.println(res);
+        System.out.println(res.equalsIgnoreCase("ht eerp us siemanym"));
+        return res;
     }
 }
 

@@ -279,6 +279,9 @@ public class EmployeeStreamDemo {
                 "Query 15 : Who is the oldest employee in the organization? What is his age and which department he belongs to?");
         Optional<Employee> oldestEmployeeWrapper = employeeList.stream().max(Comparator.comparingInt(Employee::getAge));
 
+        Employee hr = employeeList.stream().filter(emp -> emp.getDepartment().equals("HR")).max(Comparator.comparing(Employee::getSalary)).get();
+        System.out.println("employee who belongs to HR dept with highest salary: "+hr);
+
         Employee oldestEmployee = oldestEmployeeWrapper.get();
 
         System.out.println("Name : " + oldestEmployee.getName());
