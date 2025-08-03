@@ -50,7 +50,7 @@ public class PrintFrequenciesOfCharactersInaStringAllOrders {
 
     private static void charactersInOrderOfMostOccurring(Set<Map.Entry<String, Long>> input) {
         input.stream()
-                .sorted(Map.Entry.comparingByValue((o1, o2) -> o2.compareTo(o1)))
+                .sorted(Map.Entry.comparingByValue())
                 .map(e -> e.getKey()+e.getValue()+" ")
                 .forEach(System.out::print);
     }

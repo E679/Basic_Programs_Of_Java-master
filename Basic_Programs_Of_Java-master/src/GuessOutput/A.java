@@ -18,7 +18,7 @@ class B extends A {
         System.out.println("In m2 B");
     }
     void method1() throws IndexOutOfBoundsException{
-        System.out.println("In m1 A");
+        System.out.println("In m1 AB");
     }
 }
 
@@ -27,7 +27,7 @@ class Test {
         A a = new B();
         a.m1();// Ouput : In m1 B
         //a.m2();// Compilation Error
-        a.method1();// Output: In m1 A
+        a.method1();// Output: In m1 AB
 
         System.out.println("Second type");
         A a1 = new A();
