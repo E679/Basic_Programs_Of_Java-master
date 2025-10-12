@@ -11,6 +11,16 @@ public class MergeSortedArray {
         merge(arr1,arr2,n,m);
         System.out.print(Arrays.toString(arr1)+" ");//[0, 1, 2, 3]
         System.out.print(Arrays.toString(arr2)+" ");//[5, 6, 7, 8, 9]
+        int n1= arr1.length;
+        int m1= arr2.length;
+        int[] mergedArr=new int[n1+m1];
+        for(int i=0;i<n1;i++){
+            mergedArr[i]=arr1[i];
+        }
+        for(int i=0;i<m1;i++){
+            mergedArr[n1+i]=arr2[i];
+        }
+        System.out.print(Arrays.toString(mergedArr));
     }
 
     private static void merge(int[] arr1, int[] arr2, int n, int m) {
@@ -35,7 +45,7 @@ public class MergeSortedArray {
             res[k++]=arr2[right++];
         }
 
-        System.out.print(Arrays.toString(res));//[0, 1, 2, 3, 5, 6, 7, 8, 9]
+        //System.out.print(Arrays.toString(res));//[0, 1, 2, 3, 5, 6, 7, 8, 9]
         for(int i=0;i<n+m;i++){
             if(i<n){
                 arr1[i]=res[i];

@@ -1,6 +1,7 @@
 package Leetcode;
 
 import java.util.Arrays;
+import java.util.*;
 
 public class MergeSortedArray {
     public static void main(String[] args) {
@@ -10,10 +11,45 @@ public class MergeSortedArray {
         int n = 3;
 
         merge(nums1, m, nums2, n);
-
         System.out.println("Merged Array: " + Arrays.toString(nums1));
+        //Second way
+        int[] nums12 = {1, 2, 3, 0, 0, 0};
+        int m1 = 3;
+        int[] nums21 = {2, 5, 6};
+        int n1 = 3;
+
+        merge1(nums12, m1, nums21, n1);
+        System.out.println("Merged1 Array: " + Arrays.toString(nums1));
+        //third way
+        int[] arr1 = {-5, -2, 4, 5};
+        int[] arr2 = {-3, 1, 8};
+        mergeTwoArrays(arr1,arr1.length,arr2,arr2.length);
+        System.out.println("mergeWithoutExtraSpace:"+ Arrays.toString(arr1));//[-5, -3, -2, 1]
+        System.out.println("mergeWithoutExtraSpace:"+ Arrays.toString(arr2));//[4, 5, 8]
     }
 
+    //My own different from leetcode
+    public static void mergeTwoArrays(int[] nums1, int m, int[] nums2, int n) {
+        List<Integer> ls=new ArrayList<>();
+        for(int ns1:nums1){
+            ls.add(ns1);
+        }
+        for(int ns2:nums2){
+            ls.add(ns2);
+        }
+        Collections.sort(ls);
+        for(int i=0;i<m;i++){
+            nums1[i]=ls.get(i);
+        }
+        for(int i=0;i<n;i++){
+            nums2[i]=ls.get(m+i);
+        }
+    }
+    /*
+    take two pointers start comparing elements of arr1 from last index(p1) and
+    compare elements from last index(p2) of arr2
+    index p=m+n-1 which is last index of arr1 to put elements which is greater in either arr1 or arr2
+     */ //for leetcode
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
         // Pointers for nums1 and nums2
         int p1 = m - 1; // Last element in the non-zero portion of nums1
@@ -40,7 +76,24 @@ public class MergeSortedArray {
         }
         // Note: No need to handle remaining elements in nums1 as they are already in place
     }
+
+    //Another way for leet code
+    public static void merge1(int[] nums1, int m, int[] nums2, int n) {
+        int p1 = m - 1;//for comparing
+        int p2 = n - 1;//for comparing
+        int i = m + n - 1;//for placing elements
+
+        while (p2 >= 0) {
+            if (p1 >= 0 && nums1[p1] > nums2[p2]) {
+                nums1[i--] = nums1[p1--];
+            } else {
+                nums1[i--] = nums2[p2--];
+            }
+        }
+    }
 }
+
+
 /*
 OUTPUT: Merged Array: [1, 2, 2, 3, 5, 6]
 
