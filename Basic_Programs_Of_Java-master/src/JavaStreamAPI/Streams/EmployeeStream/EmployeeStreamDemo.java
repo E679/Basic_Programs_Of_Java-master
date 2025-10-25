@@ -92,6 +92,8 @@ public class EmployeeStreamDemo {
         method19();
         //Query 20: Given an Employee list, sort employees based on their salaries in desc order
         method20();
+        //Query 21: Find the highest paid salary in each department using Java streams
+        method21();
     }
 
     public static void method1() {
@@ -365,6 +367,27 @@ public class EmployeeStreamDemo {
         List<Employee> employeesWithLowestSalaryThan3rdHighest = employeeList.stream().sorted((o1, o2) -> (int) (o2.getSalary() - o1.getSalary())).skip(3).collect(Collectors.toList());
         System.out.println("employeesWithLowestSalaryThan3rdHighest: " + employeesWithLowestSalaryThan3rdHighest);
     }
+
+    private static void method21(){
+        Map<String, Optional<Employee>> highestSalariesByDept = employeeList.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))));
+
+        highestSalariesByDept.forEach((dept, employee) -> {
+            System.out.println("Department: " + dept +
+                    ", Highest Salary: " + (employee.isPresent() ? employee.get().getSalary() : "N/A"));
+        });
+    }
+/*
+OUTPUT for Query 21
+
+Department: Product Development, Highest Salary: 35700.0
+Department: Security And Transport, Highest Salary: 11000.5
+Department: Sales And Marketing, Highest Salary: 13500.0
+Department: Infrastructure, Highest Salary: 18000.0
+Department: HR, Highest Salary: 25000.0
+Department: Account And Finance, Highest Salary: 27000.0
+ */
 
     /*
     Outputs For Above All queries

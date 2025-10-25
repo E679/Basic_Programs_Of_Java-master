@@ -19,3 +19,30 @@ public class ParentChild {
         p.method();
     }
 }
+class SuperClass {
+    public static void staticMethod() {
+        System.out.println("Static method in SuperClass");
+    }
+}
+
+class SubClass extends SuperClass {
+    public static void staticMethod() { // Hides staticMethod in SuperClass
+        System.out.println("Static method in SubClass");
+    }
+}
+
+class MethodHidingExample {
+    public static void main(String[] args) {
+        SuperClass.staticMethod(); // Calls staticMethod in SuperClass
+        SubClass.staticMethod();   // Calls staticMethod in SubClass
+
+        SuperClass obj = new SubClass();
+        obj.staticMethod();        // Calls staticMethod in SuperClass (due to reference type)
+    }
+}
+//OUTPUT:
+/*
+Static method in SuperClass
+Static method in SubClass
+Static method in SuperClass
+ */

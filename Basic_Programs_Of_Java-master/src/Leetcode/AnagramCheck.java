@@ -35,22 +35,25 @@ public class AnagramCheck {
 
     //Another lengthy way
     public static boolean isAnagrams(String s, String t) {
-        if(s.length()!=t.length()){
+        if (s.length() != t.length()) {
             return false;
         }
-        char[] ch1=s.toCharArray();
-        char[] ch2=t.toCharArray();
-        sort(ch1);sort(ch2);
-        String s1=new String(ch1);String s2=new String(ch2);
+        char[] ch1 = s.toCharArray();
+        char[] ch2 = t.toCharArray();
+        sort(ch1);
+        sort(ch2);
+        String s1 = new String(ch1);
+        String s2 = new String(ch2);
         return s1.equalsIgnoreCase(s2);
     }
-    private static void sort(char[] arr){
-        for(int i=0;i<arr.length;i++){
-            for(int j=0;j<arr.length-i-1;j++){
-                if(arr[j]>arr[j+1]){
-                    char temp=arr[j];
-                    arr[j]=arr[j+1];
-                    arr[j+1]=temp;
+
+    private static void sort(char[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    char temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
                 }
             }
         }

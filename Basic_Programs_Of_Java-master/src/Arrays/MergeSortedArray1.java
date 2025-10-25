@@ -19,7 +19,7 @@ public class MergeSortedArray1 {
 
         // sort the merged array
         Arrays.sort(merged);
-
+        System.out.print(Arrays.toString(merged));
         // distribute first n elements to arr1
         for (int i = 0; i < n; ++i) {
             arr1[i] = merged[i];
