@@ -1,9 +1,23 @@
 package Leetcode;
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 public class MajorityElement {
     public static void main(String[] args) {
-        int k = majorityElement(new int[]{3, 2, 3});
+        int[] ints = {3, 2, 3};
+        int k = majorityElement(ints);
         System.out.println(k);//Output : 3
+        Integer majorityElement = Arrays.stream(ints).mapToObj(i -> i).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet().stream().max(Map.Entry.comparingByValue()).map(e -> e.getKey()).get();
+        System.out.print("majorityElement: "+majorityElement);
+//        for(Map.Entry<Integer, Long> entry: integerLongMap.entrySet()){
+//            if(entry.getValue()>1){
+//                System.out.print(entry.getKey());
+//            }
+//        }
     }
     public static int majorityElement(int[] nums) {
         int n=nums.length/2;
