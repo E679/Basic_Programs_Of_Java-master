@@ -32,5 +32,13 @@ public class Main {
 
         // Print final result
         finalList.forEach(System.out::println);
+
+        Map<Integer, Integer> integerIntegerMap = list1.stream()
+                .filter(e1 -> empMarksMap.containsKey(e1.getEmpName()))
+                //.map(e1 -> new Result(e1.getEmpId(), empMarksMap.get(e1.getEmpName())))
+                .collect(Collectors.toMap(e1 -> e1.getEmpId(), e1 -> empMarksMap.get(e1.getEmpName())));
+        for(Map.Entry<Integer,Integer> entry:integerIntegerMap.entrySet()){
+            System.out.println("empId="+entry.getKey()+", empMarks="+entry.getValue());
+        }
     }
 }

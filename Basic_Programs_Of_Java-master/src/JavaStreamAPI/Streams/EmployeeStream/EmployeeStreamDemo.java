@@ -121,7 +121,7 @@ public class EmployeeStreamDemo {
                 .collect(Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary)));
         System.out.println(highestPaidEmployeeWrapper.get().getName());
 
-        //Get Highest salary another way
+        //Get Highest salary
         Employee highestemployee = employeeList.stream().sorted(Comparator.comparingDouble(Employee::getSalary).reversed()).findFirst().orElse(null);
         if (highestemployee != null) {
             System.out.println("highest salary: " + highestemployee.getSalary());
