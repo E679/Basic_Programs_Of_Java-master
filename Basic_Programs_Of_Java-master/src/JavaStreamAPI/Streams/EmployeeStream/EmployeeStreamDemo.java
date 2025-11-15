@@ -94,6 +94,8 @@ public class EmployeeStreamDemo {
         method20();
         //Query 21: Find the highest paid salary in each department using Java streams
         method21();
+        //Query 22: Find highest paid employee from department
+        method22();
     }
 
     public static void method1() {
@@ -378,9 +380,30 @@ public class EmployeeStreamDemo {
                     ", Highest Salary: " + (employee.isPresent() ? employee.get().getSalary() : "N/A"));
         });
     }
+
+    //Another way
+    private static void method22() {
+        Map<String, Employee> highestSalariesByDept = employeeList.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary)), Optional::get)));
+        System.out.println("highestSalariesByDept Method22: " + highestSalariesByDept);
+        highestSalariesByDept.forEach((dept, employee) -> {
+            System.out.println("Department: " + dept +
+                    ", Highest Salary: " + employee.getSalary());
+        });
+    }
 /*
 OUTPUT for Query 21
 
+Department: Product Development, Highest Salary: 35700.0
+Department: Security And Transport, Highest Salary: 11000.5
+Department: Sales And Marketing, Highest Salary: 13500.0
+Department: Infrastructure, Highest Salary: 18000.0
+Department: HR, Highest Salary: 25000.0
+Department: Account And Finance, Highest Salary: 27000.0
+
+OUTPUT for Query 22
+highestSalariesByDept Method22:  {Product Development=Id : 277, Name : Anuj Chettiar, age : 31, Gender : Male, Department : Product Development, Year Of Joining : 2012, Salary : 35700.0, Security And Transport=Id : 200, Name : Jaden Dough, age : 38, Gender : Male, Department : Security And Transport, Year Of Joining : 2015, Salary : 11000.5, Sales And Marketing=Id : 122, Name : Paul Niksui, age : 25, Gender : Male, Department : Sales And Marketing, Year Of Joining : 2015, Salary : 13500.0, Infrastructure=Id : 133, Name : Martin Theron, age : 29, Gender : Male, Department : Infrastructure, Year Of Joining : 2012, Salary : 18000.0, HR=Id : 111, Name : Jiya Brein, age : 32, Gender : Female, Department : HR, Year Of Joining : 2011, Salary : 25000.0, Account And Finance=Id : 177, Name : Manu Sharma, age : 35, Gender : Male, Department : Account And Finance, Year Of Joining : 2010, Salary : 27000.0}
 Department: Product Development, Highest Salary: 35700.0
 Department: Security And Transport, Highest Salary: 11000.5
 Department: Sales And Marketing, Highest Salary: 13500.0
