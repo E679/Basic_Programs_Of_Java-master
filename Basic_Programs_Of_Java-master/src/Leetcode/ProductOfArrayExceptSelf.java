@@ -23,6 +23,8 @@ public class ProductOfArrayExceptSelf {
         int[] arr={1,2,3,4};
         int[] productExceptSelf = productExceptSelf(arr);
         System.out.println("productExceptSelf: "+ Arrays.toString(productExceptSelf));
+        int[] productExceptSelf1 = productExceptSelf1(arr);
+        System.out.println("productExceptSelf1: "+ Arrays.toString(productExceptSelf1));
     }
     public static int[] productExceptSelf(int[] nums) {
         int len=nums.length;
@@ -43,4 +45,22 @@ public class ProductOfArrayExceptSelf {
         }
         return res;
     }
+    public static int[] productExceptSelf1(int[] nums) {
+        int n = nums.length;
+        int[] res = new int[n];
+        int left = 1, right = 1;
+
+        for (int i = 0; i < n; i++) {
+            res[i] = left;
+            left *= nums[i];
+        }
+
+        for (int i = n - 1; i >= 0; i--) {
+            res[i] *= right;
+            right *= nums[i];
+        }
+
+        return res;
+    }
+
 }
