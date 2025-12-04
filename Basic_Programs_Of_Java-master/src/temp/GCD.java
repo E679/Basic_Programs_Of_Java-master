@@ -18,4 +18,11 @@ public class GCD {
         }
         System.out.println("GCD is : "+ n2);
     }
+    //Using Recursion
+    public static int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
 }
