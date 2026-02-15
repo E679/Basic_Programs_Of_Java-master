@@ -9,23 +9,23 @@ public class EmployeeStreamDemo {
 
     public static void main(String[] args) {
 
-        employeeList.add(new Employee(111, "Jiya Brein", 32, "Female", "HR", 2011, 25000.0));
-        employeeList.add(new Employee(122, "Paul Niksui", 25, "Male", "Sales And Marketing", 2015, 13500.0));
-        employeeList.add(new Employee(133, "Martin Theron", 29, "Male", "Infrastructure", 2012, 18000.0));
-        employeeList.add(new Employee(144, "Murali Gowda", 28, "Male", "Product Development", 2014, 32500.0));
-        employeeList.add(new Employee(155, "Nima Roy", 27, "Female", "HR", 2013, 22700.0));
-        employeeList.add(new Employee(166, "Iqbal Hussain", 43, "Male", "Security And Transport", 2016, 10500.0));
-        employeeList.add(new Employee(177, "Manu Sharma", 35, "Male", "Account And Finance", 2010, 27000.0));
-        employeeList.add(new Employee(188, "Wang Liu", 31, "Male", "Product Development", 2015, 34500.0));
-        employeeList.add(new Employee(199, "Amelia Zoe", 24, "Female", "Sales And Marketing", 2016, 11500.0));
-        employeeList.add(new Employee(200, "Jaden Dough", 38, "Male", "Security And Transport", 2015, 11000.5));
-        employeeList.add(new Employee(211, "Jasna Kaur", 27, "Female", "Infrastructure", 2014, 15700.0));
-        employeeList.add(new Employee(222, "Nitin Joshi", 25, "Male", "Product Development", 2016, 28200.0));
-        employeeList.add(new Employee(233, "Jyothi Reddy", 27, "Female", "Account And Finance", 2013, 21300.0));
-        employeeList.add(new Employee(244, "Nicolus Den", 24, "Male", "Sales And Marketing", 2017, 10700.5));
-        employeeList.add(new Employee(255, "Ali Baig", 23, "Male", "Infrastructure", 2018, 12700.0));
-        employeeList.add(new Employee(266, "Sanvi Pandey", 26, "Female", "Product Development", 2015, 28900.0));
-        employeeList.add(new Employee(277, "Anuj Chettiar", 31, "Male", "Product Development", 2012, 35700.0));
+        employeeList.add(new Employee(111, "Jiya Brein", 32, "Female", "HR", 2011, 25000.0, true));
+        employeeList.add(new Employee(122, "Paul Niksui", 25, "Male", "Sales And Marketing", 2015, 13500.0, true));
+        employeeList.add(new Employee(133, "Martin Theron", 29, "Male", "Infrastructure", 2012, 18000.0, true));
+        employeeList.add(new Employee(144, "Murali Gowda", 28, "Male", "Product Development", 2014, 32500.0, false));
+        employeeList.add(new Employee(155, "Nima Roy", 27, "Female", "HR", 2013, 22700.0, false));
+        employeeList.add(new Employee(166, "Iqbal Hussain", 43, "Male", "Security And Transport", 2016, 10500.0, false));
+        employeeList.add(new Employee(177, "Manu Sharma", 35, "Male", "Account And Finance", 2010, 27000.0, true));
+        employeeList.add(new Employee(188, "Wang Liu", 31, "Male", "Product Development", 2015, 34500.0, true));
+        employeeList.add(new Employee(199, "Amelia Zoe", 24, "Female", "Sales And Marketing", 2016, 11500.0, true));
+        employeeList.add(new Employee(200, "Jaden Dough", 38, "Male", "Security And Transport", 2015, 11000.5, false));
+        employeeList.add(new Employee(211, "Jasna Kaur", 27, "Female", "Infrastructure", 2014, 15700.0, false));
+        employeeList.add(new Employee(222, "Nitin Joshi", 25, "Male", "Product Development", 2016, 28200.0, false));
+        employeeList.add(new Employee(233, "Jyothi Reddy", 27, "Female", "Account And Finance", 2013, 21300.0, true));
+        employeeList.add(new Employee(244, "Nicolus Den", 24, "Male", "Sales And Marketing", 2017, 10700.5, true));
+        employeeList.add(new Employee(255, "Ali Baig", 23, "Male", "Infrastructure", 2018, 12700.0, true));
+        employeeList.add(new Employee(266, "Sanvi Pandey", 26, "Female", "Product Development", 2015, 28900.0, false));
+        employeeList.add(new Employee(277, "Anuj Chettiar", 31, "Male", "Product Development", 2012, 35700.0, true));
 
         //joining
         List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
@@ -96,6 +96,8 @@ public class EmployeeStreamDemo {
         method21();
         //Query 22: Find highest paid employee from department
         method22();
+        //Query 23: Active and inactive employees
+        method23();
     }
 
     public static void method1() {
@@ -122,6 +124,42 @@ public class EmployeeStreamDemo {
         Optional<Employee> highestPaidEmployeeWrapper = employeeList.stream()
                 .collect(Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary)));
         System.out.println(highestPaidEmployeeWrapper.get().getName());
+
+        // Max salary in each department
+        Map<String, Optional<Double>> maxSalary = employeeList.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getDepartment,
+                        Collectors.mapping(Employee::getSalary, Collectors.maxBy(Double::compare))
+                ));
+
+        System.out.println("Max Salary by Department:");
+        maxSalary.forEach((dept, salary) ->
+                System.out.println(dept + ": " + salary.orElse(0.0))
+        );
+
+        // Min salary in each department
+        Map<String, Optional<Double>> minSalary = employeeList.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getDepartment,
+                        Collectors.mapping(Employee::getSalary, Collectors.minBy(Double::compare))
+                ));
+
+        System.out.println("\nMin Salary by Department:");
+        minSalary.forEach((dept, salary) ->
+                System.out.println(dept + ": " + salary.orElse(0.0))
+        );
+
+        // Overall max and min salary
+        Optional<Employee> highestPaid = employeeList.stream()
+                .max(Comparator.comparingDouble(Employee::getSalary));
+
+        Optional<Employee> lowestPaid = employeeList.stream()
+                .min(Comparator.comparingDouble(Employee::getSalary));
+
+        System.out.println("\nOverall Highest Salary: " +
+                highestPaid.map(Employee::getSalary).orElse(0.0));
+        System.out.println("Overall Lowest Salary: " +
+                lowestPaid.map(Employee::getSalary).orElse(0.0));
 
         //Get Highest salary
         Employee highestemployee = employeeList.stream().sorted(Comparator.comparingDouble(Employee::getSalary).reversed()).findFirst().orElse(null);
@@ -276,6 +314,31 @@ public class EmployeeStreamDemo {
                 System.out.println(e.getName());
             }
         }
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+        // Method 1: Using partitioningBy
+        Map<Boolean, Integer> sumMap = numbers.stream()
+                .collect(Collectors.partitioningBy(
+                        n -> n % 2 == 0,
+                        Collectors.summingInt(Integer::intValue)
+                ));
+
+        System.out.println("Sum of Even: " + sumMap.get(true));   // 30
+        System.out.println("Sum of Odd: " + sumMap.get(false));   // 25
+
+        // Method 2: Separate streams
+        int evenSum = numbers.stream()
+                .filter(n -> n % 2 == 0)
+                .mapToInt(Integer::intValue)
+                .sum();
+
+        int oddSum = numbers.stream()
+                .filter(n -> n % 2 != 0)
+                .mapToInt(Integer::intValue)
+                .sum();
+
+        System.out.println("Even Sum: " + evenSum);  // 30
+        System.out.println("Odd Sum: " + oddSum);    // 25
     }
 
     public static void method15() {
@@ -284,7 +347,7 @@ public class EmployeeStreamDemo {
         Optional<Employee> oldestEmployeeWrapper = employeeList.stream().max(Comparator.comparingInt(Employee::getAge));
 
         Employee hr = employeeList.stream().filter(emp -> emp.getDepartment().equals("HR")).max(Comparator.comparing(Employee::getSalary)).get();
-        System.out.println("employee who belongs to HR dept with highest salary: "+hr);
+        System.out.println("employee who belongs to HR dept with highest salary: " + hr);
 
         Employee oldestEmployee = oldestEmployeeWrapper.get();
 
@@ -306,57 +369,121 @@ public class EmployeeStreamDemo {
 
     private static void method17() {
         System.out.println("Group Employees by Dept");
-        Map<String, List<Employee>> empBydept = employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment));
-        System.out.println(empBydept);
+        Map<String, List<Employee>> employeesByDept = employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment));
+        employeesByDept.forEach((dept, empList) -> {
+            System.out.println("\n" + dept + " Department:");
+            empList.forEach(emp -> System.out.println("  " + emp));
+        });
+        //Get only names
+        Map<String, List<String>> namesByDept = employeeList.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getDepartment,
+                        Collectors.mapping(Employee::getName, Collectors.toList())
+                ));
+
+        System.out.println("\nNames by Department:");
+        namesByDept.forEach((dept, names) ->
+                System.out.println(dept + ": " + names)
+        );
+
+        System.out.println("--------------------------------------------------");
+        //Group Employees by Dept and Salary
+        System.out.println("Group Employees by Dept and Salary");
+        Map<String, Map<String, List<Employee>>> employeesByDeptAndSalary = employeeList.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.groupingBy(employee -> employee.getSalary() > 20000 ? "High" : "Low")));
+        employeesByDeptAndSalary.forEach((dept, empList) -> {
+            System.out.println("\n" + dept + " Department:");
+            empList.forEach((salary, empList1) -> {
+                System.out.println("  " + salary + " Salary:");
+                empList1.forEach(emp -> System.out.println("    " + emp));
+            });
+        });
+        System.out.println("--------------------------------------------------");
+        //OUTPUT:
+        /*
+        Product Development Department:
+  High Salary:
+    Id : 144, Name : Murali Gowda, age : 28, Gender : Male, Department : Product Development, Year Of Joining : 2014, Salary : 32500.0, Active : false
+    Id : 188, Name : Wang Liu, age : 31, Gender : Male, Department : Product Development, Year Of Joining : 2015, Salary : 34500.0, Active : true
+    Id : 222, Name : Nitin Joshi, age : 25, Gender : Male, Department : Product Development, Year Of Joining : 2016, Salary : 28200.0, Active : false
+    Id : 266, Name : Sanvi Pandey, age : 26, Gender : Female, Department : Product Development, Year Of Joining : 2015, Salary : 28900.0, Active : false
+    Id : 277, Name : Anuj Chettiar, age : 31, Gender : Male, Department : Product Development, Year Of Joining : 2012, Salary : 35700.0, Active : true
+
+Security And Transport Department:
+  Low Salary:
+    Id : 166, Name : Iqbal Hussain, age : 43, Gender : Male, Department : Security And Transport, Year Of Joining : 2016, Salary : 10500.0, Active : false
+    Id : 200, Name : Jaden Dough, age : 38, Gender : Male, Department : Security And Transport, Year Of Joining : 2015, Salary : 11000.5, Active : false
+
+Sales And Marketing Department:
+  Low Salary:
+    Id : 122, Name : Paul Niksui, age : 25, Gender : Male, Department : Sales And Marketing, Year Of Joining : 2015, Salary : 13500.0, Active : true
+    Id : 199, Name : Amelia Zoe, age : 24, Gender : Female, Department : Sales And Marketing, Year Of Joining : 2016, Salary : 11500.0, Active : true
+    Id : 244, Name : Nicolus Den, age : 24, Gender : Male, Department : Sales And Marketing, Year Of Joining : 2017, Salary : 10700.5, Active : true
+
+Infrastructure Department:
+  Low Salary:
+    Id : 133, Name : Martin Theron, age : 29, Gender : Male, Department : Infrastructure, Year Of Joining : 2012, Salary : 18000.0, Active : true
+    Id : 211, Name : Jasna Kaur, age : 27, Gender : Female, Department : Infrastructure, Year Of Joining : 2014, Salary : 15700.0, Active : false
+    Id : 255, Name : Ali Baig, age : 23, Gender : Male, Department : Infrastructure, Year Of Joining : 2018, Salary : 12700.0, Active : true
+
+HR Department:
+  High Salary:
+    Id : 111, Name : Jiya Brein, age : 32, Gender : Female, Department : HR, Year Of Joining : 2011, Salary : 25000.0, Active : true
+    Id : 155, Name : Nima Roy, age : 27, Gender : Female, Department : HR, Year Of Joining : 2013, Salary : 22700.0, Active : false
+
+Account And Finance Department:
+  High Salary:
+    Id : 177, Name : Manu Sharma, age : 35, Gender : Male, Department : Account And Finance, Year Of Joining : 2010, Salary : 27000.0, Active : true
+    Id : 233, Name : Jyothi Reddy, age : 27, Gender : Female, Department : Account And Finance, Year Of Joining : 2013, Salary : 21300.0, Active : true
+         */
     }
 
     private static void method18() {
         System.out.println("Group Employees who are Eligible or Ineligible");
-       Map<String, List<Employee>> empeligibleAndIneligble= employeeList.stream().collect(Collectors.groupingBy(employee -> employee.getAge() >= 30 ? "Eligible" : "InEligible"));
-       System.out.println(empeligibleAndIneligble);
+        Map<String, List<Employee>> empeligibleAndIneligble = employeeList.stream().collect(Collectors.groupingBy(employee -> employee.getAge() >= 30 ? "Eligible" : "InEligible"));
+        System.out.println(empeligibleAndIneligble);
     }
 
     private static void method19() {
-        Map<String, Integer> map= new HashMap<>();
-        map.put("Narendra",32000);
-        map.put("Kiran",43000);
-        map.put("Gopal",45000);
-        map.put("Hari",65000);
-        map.put("john",65000);
-        map.put("Ruhi",2000);
-        map.put("prahi",2000);
-        map.put("Maanas",44000);
-        map.put("bunny",45000);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("Narendra", 32000);
+        map.put("Kiran", 43000);
+        map.put("Gopal", 45000);
+        map.put("Hari", 65000);
+        map.put("john", 65000);
+        map.put("Ruhi", 2000);
+        map.put("prahi", 2000);
+        map.put("Maanas", 44000);
+        map.put("bunny", 45000);
 
         map.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(System.out::println);
         map.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(System.out::println);
         //get second Highest employee
         //here using reverseorder because we need in descending order
-        Map.Entry<String, Integer> secondhighestemployee=map.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).collect(Collectors.toList()).get(1);
-        System.out.println("secondhighestemployee "+secondhighestemployee);
+        Map.Entry<String, Integer> secondhighestemployee = map.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).collect(Collectors.toList()).get(1);
+        System.out.println("secondhighestemployee " + secondhighestemployee);
         //get second Lowest employee
         //here not using reverseorder because we need in ascending order
         Map.Entry<String, Integer> secondlowestemployee = map.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(Collectors.toList()).get(1);
-        System.out.println("secondlowestemployee "+secondlowestemployee);
+        System.out.println("secondlowestemployee " + secondlowestemployee);
 
         //this approach won't work when there are same salary values for different employees in the map
         Map.Entry<String, Integer> results = getnthHighestSalary(2, map);
-        System.out.println("nthHighestSalary results "+results);
+        System.out.println("nthHighestSalary results " + results);
         //below dynamic approach will work bcoz we group employees based on salary first
-        Entry<Integer, List<String>> salaryresult = getDynamicnthHighestSalary(2,map);
+        Entry<Integer, List<String>> salaryresult = getDynamicnthHighestSalary(2, map);
         System.out.println(salaryresult);
     }
 
     private static Map.Entry<String, Integer> getnthHighestSalary(int num, Map<String, Integer> map) {
         //here num-1 bcoz index starts from 0
         return map.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).
-                collect(Collectors.toList()).get(num-1);
+                collect(Collectors.toList()).get(num - 1);
     }
 
     private static Map.Entry<Integer, List<String>> getDynamicnthHighestSalary(int num, Map<String, Integer> map) {
         return map.entrySet().stream()
                 .collect(Collectors.groupingBy(Entry::getValue, Collectors.mapping(Entry::getKey, Collectors.toList())))
-                .entrySet().stream().sorted(Collections.reverseOrder(Entry.comparingByKey())).collect(Collectors.toList()).get(num-1);
+                .entrySet().stream().sorted(Collections.reverseOrder(Entry.comparingByKey())).collect(Collectors.toList()).get(num - 1);
     }
 
     private static void method20() {
@@ -370,7 +497,7 @@ public class EmployeeStreamDemo {
         System.out.println("employeesWithLowestSalaryThan3rdHighest: " + employeesWithLowestSalaryThan3rdHighest);
     }
 
-    private static void method21(){
+    private static void method21() {
         Map<String, Optional<Employee>> highestSalariesByDept = employeeList.stream()
                 .collect(Collectors.groupingBy(Employee::getDepartment,
                         Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))));
@@ -391,6 +518,26 @@ public class EmployeeStreamDemo {
             System.out.println("Department: " + dept +
                     ", Highest Salary: " + employee.getSalary());
         });
+    }
+
+    private static void method23() {
+        Map<Boolean, List<Employee>> activeAndInactiveEmployees = employeeList.stream().collect(Collectors.groupingBy(Employee::isActive));
+        System.out.println("activeAndInactiveEmployees: " + activeAndInactiveEmployees);
+        activeAndInactiveEmployees.forEach((active, employees) -> {
+            System.out.println("Active: " + active + ", Employees: " + employees);
+        });
+        //Another way
+        Map<Boolean, List<Employee>> activeAndInactiveEmployeesAnotherWay = employeeList.stream().collect(Collectors.partitioningBy(Employee::isActive));
+        System.out.println("Active Employees:");
+        activeAndInactiveEmployeesAnotherWay.get(true).forEach(e -> System.out.println(e.getName()));
+        System.out.println("\nInactive Employees:");
+        activeAndInactiveEmployeesAnotherWay.get(false).forEach(e -> System.out.println(e.getName()));
+
+        //Count active and inactive employees
+        Map<Boolean, Long> activeAndInactiveEmployeesCountAnotherWay = employeeList.stream().collect(Collectors.partitioningBy(Employee::isActive, Collectors.counting()));
+        System.out.println("\nActive Count: " + activeAndInactiveEmployeesCountAnotherWay.get(true));
+        System.out.println("Inactive Count: " + activeAndInactiveEmployeesCountAnotherWay.get(false));
+
     }
 /*
 OUTPUT for Query 21
@@ -640,8 +787,9 @@ class Employee {
     int yearOfJoining;
 
     double salary;
+    boolean active;
 
-    public Employee(int id, String name, int age, String gender, String department, int yearOfJoining, double salary) {
+    public Employee(int id, String name, int age, String gender, String department, int yearOfJoining, double salary,boolean active) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -649,6 +797,7 @@ class Employee {
         this.department = department;
         this.yearOfJoining = yearOfJoining;
         this.salary = salary;
+        this.active = active;
     }
 
     public int getId() {
@@ -678,10 +827,13 @@ class Employee {
     public double getSalary() {
         return salary;
     }
+    public boolean isActive() {
+        return active;
+    }
 
     @Override
     public String toString() {
         return "Id : " + id + ", Name : " + name + ", age : " + age + ", Gender : " + gender + ", Department : "
-                + department + ", Year Of Joining : " + yearOfJoining + ", Salary : " + salary;
+                + department + ", Year Of Joining : " + yearOfJoining + ", Salary : " + salary + ", Active : " + active;
     }
 }

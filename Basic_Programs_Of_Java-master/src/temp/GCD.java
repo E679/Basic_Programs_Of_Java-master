@@ -17,5 +17,30 @@ public class GCD {
             }
         }
         System.out.println("GCD is : "+ n2);
+        System.out.println("GCD is : "+ gcd(n1,n2));
+        System.out.println("GCD is : "+ gcd1(n1,n2));
+    }
+    //Using Recursion
+    public static int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+    static int gcd1(int a, int b) {
+        // Everything divides 0
+        if (a == 0)
+            return b;
+        if (b == 0)
+            return a;
+
+        // Base case
+        if (a == b)
+            return a;
+
+        // a is greater
+        if (a > b)
+            return gcd(a - b, b);
+        return gcd(a, b - a);
     }
 }
